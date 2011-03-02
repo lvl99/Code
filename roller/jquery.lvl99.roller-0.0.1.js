@@ -1,6 +1,6 @@
 /*
 
-	Plugin Name: 			Roller
+	Plugin Name: 			LVL99 Roller
 	Plugin Version: 		0.1
 	Plugin Description:  	Similar to carousel but much better.
 	

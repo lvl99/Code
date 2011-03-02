@@ -1,6 +1,6 @@
 /*
 
-	Plugin Name: 			Sticky
+	Plugin Name: 			LVL99 Sticky
 	Plugin Version: 		0.1
 	Plugin Description:  	'Sticks' an element to a spot for scrolling.
 	Plugin URL:				http://www.github.com/

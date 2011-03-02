@@ -3,14 +3,33 @@ Here is a collection of jQuery plugins and projects I'm working on.
 
 Roller v0.0.1
 -----------------------------------------------
-Roller is a carousel-esque plugin. It can be used for slideshows, and other such interactive slides. The roller plugin can take any number of children elements and the child elements themselves can be anything (i.e. images, block elements, iframes, etc.). It has many customisable features and can even build its own navigation.
+Roller is a carousel-esque plugin. It can be used for slideshows,
+and other such interactive slides. The roller plugin can take any
+number of children elements and the child elements themselves can
+be anything (i.e. images, block elements, iframes, etc.). It has
+many customisable features and can even build its own navigation.
 
 
 Sticky v0.0.1
 -----------------------------------------------
-Sticky allows you to mark an element as 'sticky': when the user scrolls down, the element will 'stick' to a position. This is effective for keeping navigation on a long scrolling page. Currently only Y-axis scrolling is supported, but X-axis scrolling is easy enough so I'll chuck it in soon.
+Sticky allows you to mark an element as 'sticky': when the user
+scrolls down, the element will 'stick' to a position. This is
+effective for keeping navigation on a long scrolling page.
+Currently only Y-axis scrolling is supported, but X-axis
+scrolling is easy enough so I'll chuck it in soon.
 
 
 More to come?
 -----------------------------------------------
-I have a couple other plugins I want to work on and put here, so check back again soon!
+I have a couple other plugins I want to work on and put here,
+so check back again soon!
+
+
+Browser Compatibility
+-----------------------------------------------
+I've tried to make my plugins as compatible as possible (IE6+,
+Firefox 3+, Safari 4+), but if you find any issues then please
+report them using the github issue tracker:
+
+	https://github.com/scheurbert/Code/issues
+
