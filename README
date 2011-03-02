@@ -9,6 +9,8 @@ number of children elements and the child elements themselves can
 be anything (i.e. images, block elements, iframes, etc.). It has
 many customisable features and can even build its own navigation.
 
+	http://www.lvl99.com/code/roller
+
 
 Sticky v0.0.1
 -----------------------------------------------
@@ -17,6 +19,8 @@ scrolls down, the element will 'stick' to a position. This is
 effective for keeping navigation on a long scrolling page.
 Currently only Y-axis scrolling is supported, but X-axis
 scrolling is easy enough so I'll chuck it in soon.
+
+	http://www.lvl99.com/code/sticky
 
 
 More to come?
