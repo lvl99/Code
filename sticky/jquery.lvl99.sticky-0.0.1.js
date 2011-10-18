@@ -33,30 +33,37 @@
 					trigger = {};
 					
 				if ( !$('#debug-sticky-'+$elem.attr('id')).length ) {
-					$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span><br/>'+($.data(elem, 'trackTop') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'trackTop') ? '' : '</del>')+' '+($.data(elem, 'trackLeft') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'trackLeft') ? '' : '</del>')+'</div>');
+					$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span><br/>'+($.data(elem, 'stickyTrackTop') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'stickyTrackTop') ? '' : '</del>')+' '+($.data(elem, 'stickyTrackLeft') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'stickyTrackLeft') ? '' : '</del>')+'</div>');
 				}
 				var debug = $('#debug-sticky-'+$elem.attr('id'));
 				debug.find('.sticky-scrollTop').text(scrollTop+' / '+($.data(elem, 'scrollTop')-$.data(elem, 'bufferTop'))+' / '+$.data(elem, 'scrollTopMax'));
 				debug.find('.sticky-scrollLeft').text(scrollLeft+' / '+($.data(elem, 'scrollLeft')-$.data(elem, 'bufferLeft'))+' / '+$.data(elem, 'scrollLeftMax'));
 				
 				// Scroll Top
-				if ( $.data(elem, 'trackTop') ) {
+				if ( $.data(elem, 'stickyTrackTop') ) {
 					if ( scrollTop > $.data(elem, 'scrollTop')-$.data(elem, 'bufferTop') ) {
 						if ( scrollTop-$.data(elem, 'bufferBottom') > $.data(elem, 'scrollTopMax') ) {
 							debug.find('.sticky-scrollTop').css('color','red');
-							css.position 			= 'absolute';
-							css.top 				= $.data(elem, 'scrollTopMax');
 							
 							// Trigger event
 							if ( !$.data(elem, 'funcTriggered').onscrolltopend ) {
-								trigger.onscrolltopend = 1;
+								css.position 			= 'absolute';
+								css.top 				= $.data(elem, 'scrollTopMax');
+								trigger.onscrolltopend 	= 1;
 								$.data(elem, 'funcTriggered').onscrolltopend = 1;
 							}
 							
 						} else {
 							debug.find('.sticky-scrollTop').css('color','green');
-							css.position 			= 'absolute';
-							css.top 				= scrollTop+$.data(elem, 'bufferTop');
+							
+							if ( $.data(elem, 'stickyType') == 'absolute' ) {
+								css.position 			= 'absolute';
+								css.top 				= scrollTop+$.data(elem, 'bufferTop');
+							} else {
+								css.position			= 'fixed';
+								css.top					= $.data(elem, 'bufferTop');
+							}
+							
 							trigger.onscroll 		= 1;
 							$.data(elem, 'funcTriggered').onscrolltopstart = 0;
 							$.data(elem, 'funcTriggered').onscrolltopend = 0;
@@ -64,12 +71,12 @@
 						
 					} else {
 						debug.find('.sticky-scrollTop').css('color','red');
-						css.position 				= 'absolute';
-						css.top 					= $.data(elem, 'scrollTop');
 
 						// Trigger event
 						if ( !$.data(elem, 'funcTriggered').onscrolltopstart ) {
-							trigger.onscrolltopstart = 1;
+							css.position 				= 'absolute';
+							css.top 					= $.data(elem, 'scrollTop');
+							trigger.onscrolltopstart 	= 1;
 							$.data(elem, 'funcTriggered').onscrolltopstart = 1;
 						}
 						
@@ -79,23 +86,31 @@
 				}
 				
 				// Scroll Left
-				if ( $.data(elem, 'trackLeft') ) {
+				if ( $.data(elem, 'stickyTrackLeft') ) {
 					if ( scrollLeft > $.data(elem, 'scrollLeft')-$.data(elem, 'bufferLeft') ) {
 						if ( scrollLeft-$.data(elem, 'bufferRight') > $.data(elem, 'scrollLeftMax') ) {
 							debug.find('.sticky-scrollLeft').css('color','red');
-							css.position 			= 'absolute';
-							css.left 				= $.data(elem, 'scrollLeftMax');
 							
 							// Trigger event
 							if ( !$.data(elem, 'funcTriggered').onscrollleftend ) {
-								trigger.onscrollleftend = 1;
+								css.position 			= 'absolute';
+								css.left 				= $.data(elem, 'scrollLeftMax');
+								trigger.onscrollleftend	= 1;
 								$.data(elem, 'funcTriggered').onscrollleftend = 1;
 							}
 							
 						} else {
 							debug.find('.sticky-scrollLeft').css('color','green');
-							css.position 			= 'absolute';
-							css.left 				= scrollLeft+$.data(elem, 'bufferTop');
+							
+							if ( $.data(elem, 'stickyType') == 'absolute' ) {
+								css.position 			= 'absolute';
+								css.left 				= scrollLeft+$.data(elem, 'bufferLeft');
+							} else {
+								console.log( $elem.attr('id'), 'scroll', 'fixed' );
+								css.position 			= 'fixed';
+								css.left 				= $.data(elem, 'bufferLeft');
+							}
+							
 							trigger.onscroll 		= 1;
 							$.data(elem, 'funcTriggered').onscrollleftstart = 0;
 							$.data(elem, 'funcTriggered').onscrollleftend = 0;
@@ -103,12 +118,12 @@
 						
 					} else {
 						debug.find('.sticky-scrollLeft').css('color','red');
-						css.position 				= 'absolute';
-						css.left 					= $.data(elem, 'scrollLeft');
 						
 						// Trigger event
 						if ( !$.data(elem, 'funcTriggered').onscrollleftstart ) {
-							trigger.onscrollleftstart = 1;
+							css.position 				= 'absolute';
+							css.left 					= $.data(elem, 'scrollLeft');
+							trigger.onscrollleftstart	= 1;
 							$.data(elem, 'funcTriggered').onscrollleftstart = 1;
 						}
 						
@@ -139,8 +154,8 @@
 	$.fn.sticky = function( options ) {
 		
 		var settings = $.extend({
-			//type:				'absolute', // absolute or fixed
-			track:				'top left', // top &| left
+			stickyType:			'auto', // absolute | fixed | auto
+			stickyTrack:		'top left', // top &| left
 			bufferLeft:			0,
 			bufferTop:			10,
 			bufferRight:		0,
@@ -157,8 +172,8 @@
 		return this.each( function() {
 		
 			var elemOffset = $(this).offset();
-			$.data(this, 'trackTop', /top/i.test(settings.track) );
-			$.data(this, 'trackLeft', /left/i.test(settings.track) );
+			$.data(this, 'stickyTrackTop', /top/i.test(settings.stickyTrack) );
+			$.data(this, 'stickyTrackLeft', /left/i.test(settings.stickyTrack) );
 			$.data(this, 'scrollTop', elemOffset.top);
 			$.data(this, 'scrollLeft', elemOffset.left);
 			$.data(this, 'scrollTopMax', $(document).height()-settings.bufferBottom );
@@ -185,6 +200,12 @@
 				$.data(this, 'scrollLeftMax', $(settings.constrainTo).outerWidth()-settings.bufferRight+$.data(this, 'scrollLeft') );
 			}
 			
+			// Determine stickyType if not set to absolute or fixed
+			// Known issue: Safari and Internet Explorer <= 7 don't support position:fixed (IE) or has trouble with position:fixed inside frames (Safari)
+			if ( !/(absolute|fixed)/i.test(settings.stickyType) ) if ( /(Macintosh|Windows).*(Safari|MSIE [1-7])/i.test(navigator.userAgent) ) settings.stickyType = 'absolute';
+			$.data(this, 'stickyType', settings.stickyType);
+			
+			// Add sticky element to the list
 			$.data(document, 'stickyElems').push(this);
 			
 			// Trigger init event

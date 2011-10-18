@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Roller Demo</title>
+		<title>Sticky Demo</title>
 		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
 		<style type="text/css">
 		<!--
+			
 			.lvl99-sticky {
 				width:					250px;
 				height:					100px;
@@ -27,6 +28,59 @@
 			#constrain {
 				height:				1000px;
 			}
+			
+			#runner-green {
+				position:			absolute;
+				left:				0;
+				top:				0;
+				width:				293px;
+				height:				270px;
+				background:			transparent url('demo/runner-green.png') no-repeat 0 0;
+			}
+			
+			#runner-pink {
+				position:			absolute;
+				left:				0;
+				top:				0;
+				width:				293px;
+				height:				270px;
+				background:			transparent url('demo/runner-pink.png') no-repeat 0 0;
+			}
+			
+			.runner-axis {
+				position:			relative;
+			}
+			
+			.frame-1 {
+				background-position:	0 0 !important;
+			}
+			
+			.frame-2 {
+				background-position:	0 -270px !important;
+			}
+			
+			.frame-3 {
+				background-position:	0 -540px !important;
+			}
+			
+			.frame-4 {
+				background-position:	0 -810px !important;
+			}
+			
+			#line {
+				background:				transparent url('demo/line.png') no-repeat 0 0;
+				position:				absolute;
+				left:					100px;
+				top:					1400px;
+				width:					831px;
+				height:					151px;
+				z-index:				9999;
+			}
+			
+			.line-finish {
+				background-position:	0 -151px !important;
+			}
+			
 		-->
 		</style>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
@@ -35,12 +89,64 @@
 			$(document).ready( function() {
 				
 				$('#normal-sticky').sticky({
-					bufferX:		10,
-					bufferY:		10
+					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
+						if ( !$.data(stickyElem, 'frameNum') ) $.data(stickyElem, 'frameNum', 0);
+						if ( scrollTop%50 == 0 ) {
+							$.data(stickyElem, 'frameNum', $.data(stickyElem, 'frameNum')+1 );
+							if ( $.data(stickyElem, 'frameNum') == 4 ) $.data(stickyElem, 'frameNum', 0);
+						}
+						if ( scrollTop < 1246 ) {
+							switch( $.data(stickyElem, 'frameNum') ) {
+								case 0: case 2:
+									if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+									break;
+								case 1:
+									if ( !$(stickyElem).find('.runner').hasClass('frame-2') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
+									break;
+								case 3:
+									if ( !$(stickyElem).find('.runner').hasClass('frame-3') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
+									break;
+							}
+						} else {
+							if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
+							if ( !$('#line').hasClass('line-finish') ) $('#line').addClass('line-finish');
+						}
+					},
+					onscrolltopstart: function( stickyElem ) {
+						if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+						$('#line').removeClass('line-finish');
+					},
+					onscrolltopend: function( stickyElem ) {
+						if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
+					}
 				});
 				
 				$('#constrain-sticky').sticky({
-					constrainTo:	$('#constrain-sticky').parent()
+					constrainTo:	$('#constrain-sticky').parent(),
+					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
+						if ( !$.data(stickyElem, 'frameNum') ) $.data(stickyElem, 'frameNum', 0);
+						if ( scrollTop%50 == 0 ) {
+							$.data(stickyElem, 'frameNum', $.data(stickyElem, 'frameNum')+1 );
+							if ( $.data(stickyElem, 'frameNum') == 4 ) $.data(stickyElem, 'frameNum', 0);
+						}
+						switch( $.data(stickyElem, 'frameNum') ) {
+							case 0: case 2:
+								if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+								break;
+							case 1:
+								if ( !$(stickyElem).find('.runner').hasClass('frame-2') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
+								break;
+							case 3:
+								if ( !$(stickyElem).find('.runner').hasClass('frame-3') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
+								break;
+						}
+					},
+					onscrolltopstart: function( stickyElem ) {
+						if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+					},
+					onscrolltopend: function( stickyElem ) {
+						if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
+					}
 				});
 				
 			});
@@ -58,7 +164,18 @@
 				</hgroup>
 				
 				<ul id="navigation" class="navigation">
-					<!--<li><a href="#"></a></li>-->
+					<li><a href="readme.html">Docs</a></li>
+					<li><a href="http://lvl99.com/code">LVL99<span style="color: #f37a9c;">/</span><span style="color: #e3f37a;">CODE</span></a></li>
+					<li class="donate">
+						<p><strong><big>Like this plugin?</big></strong><br/>
+						Donate to show your appreciation and support!</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="XPW9TNXVUBYQL">
+							<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</li>
 				</ul>
 				
 			</div><!-- /.column-1 -->
@@ -66,16 +183,34 @@
 			<div class="column column-2">
 				
 				<div id="normal-sticky" class="lvl99-sticky">
-					<h2>Normal sticky element</h2>
+					<h2>Normal Sticky Element</h2>
+					<div class="runner-axis">
+						<div id="runner-green" class="runner"></div>
+					</div>
 				</div>
 				
 				<div id="constrain">
 					<div id="constrain-sticky" class="lvl99-sticky">
-						<h2>Constrained sticky element</h2>
+						<h2>Constrained Sticky Element</h2>
+						<div class="runner-axis">
+							<div id="runner-pink" class="runner"></div>
+						</div>
 					</div>
 				</div>
 				
+				<div id="line"></div>
+				
 			</div><!-- /.column-2 -->
+			
+			<!--<div class="column column-page" style="margin-left: 200px; width: 230px; padding: 10px;">
+				<code><pre>$('#normal-sticky').sticky();</pre></code>
+			</div>
+			
+			<div class="column column-page" style="margin-left: 20px; width: 230px; padding: 10px;">
+				<code><pre>$('#constrain-sticky').sticky({
+  constrainTo: 'parent'
+});</pre></code>
+			</div>-->
 			
 		</div><!-- /.page -->
 		
