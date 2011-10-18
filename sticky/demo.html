@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Roller Demo</title>
+		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
+		<style type="text/css">
+		<!--
+			.lvl99-sticky {
+				width:					250px;
+				height:					100px;
+				float:					left;
+				margin-right:			20px;
+				padding:				10px;
+				background:				#76707d;
+				border-top:				solid 1px #7d7783;
+				border-left:			solid 1px #7d7783;
+				border-right:			solid 1px #524c59;
+				border-bottom:			solid 1px #524c59;
+				box-shadow:				0 0 10px rgba(0,0,0,.5);
+				border-radius:			10px;
+			}
+			
+			.column-2 {
+				height:				2000px;
+			}
+			
+			#constrain {
+				height:				1000px;
+			}
+		-->
+		</style>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+		<script type="text/javascript" src="jquery.lvl99.sticky-0.0.1.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+				
+				$('#normal-sticky').sticky({
+					bufferX:		10,
+					bufferY:		10
+				});
+				
+				$('#constrain-sticky').sticky({
+					constrainTo:	$('#constrain-sticky').parent()
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+		
+		<div id="top" class="page">
+			
+			<div class="column column-1">
+			
+				<hgroup>
+					<h1>Sticky</h1>
+					<h4>jQuery</h4>
+				</hgroup>
+				
+				<ul id="navigation" class="navigation">
+					<!--<li><a href="#"></a></li>-->
+				</ul>
+				
+			</div><!-- /.column-1 -->
+			
+			<div class="column column-2">
+				
+				<div id="normal-sticky" class="lvl99-sticky">
+					<h2>Normal sticky element</h2>
+				</div>
+				
+				<div id="constrain">
+					<div id="constrain-sticky" class="lvl99-sticky">
+						<h2>Constrained sticky element</h2>
+					</div>
+				</div>
+				
+			</div><!-- /.column-2 -->
+			
+		</div><!-- /.page -->
+		
+	</body>
+</html>
