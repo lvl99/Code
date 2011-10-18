@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Roller Readme</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+				
+			});
+		</script>
+		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
+		<style type="text/css">
+		<!--
+			
+		-->
+		</style>
+	</head>
+	<body>
+		
+		<div id="top" class="page">
+			
+			<div class="column column-1">
+				<hgroup>
+					<h1>Roller</h1>
+					<h4>jQuery</h4>
+				</hgroup>
+				
+				<ul class="navigation">
+					<li><a href="#about">About</a></li>
+					<li><a href="#features">Features</a></li>
+					<li><a href="#known-issues">Known Issues</a></li>
+					<li><a href="#release-log">Release Log</a></li>
+					<li><a href="#api">API</a>
+						<ul class="sub-navigation">
+							<li><a href="#api-settings">&mdash; Settings</a></li>
+							<li><a href="#api-events">&mdash; Events</a></li>
+						</ul>
+					</li>
+					<li><a href="http://lvl99.com/code">LVL99<span style="color: #f37a9c;">/</span><span style="color: #e3f37a;">CODE</span></a></li>
+					<li class="donate">
+						<p><strong><big>Like this plugin?</big></strong><br/>
+						Donate to show your appreciation and support!</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="XPW9TNXVUBYQL">
+							<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="column column-2">
+				
+				<div id="about" class="column-page">
+					<h2>About <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<p><strong>Roller</strong> was designed to support both static and dynamic content within its panels. A wide range of features make it very customisable and flexible for a variety of uses, from a simple automated slideshow to an advanced interactive showcaser.<p>
+					</div>
+				</div><!-- /.column-page -->
+					
+				<div id="features" class="column-page">
+					<h2>Features <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<ul class="list">
+							<li>Declare an element the Roller and its children will automatically be set up as panels</li>
+							<li>Wide variety of panel transitions: Fade, Slide (X and Y axis), Colour Flash</li>
+							<li>Customisable panel navigation</li>
+							<li>Auto-roll with options to pause on mouseenter</li>
+							<li>Support for triggering functions on Roller-specific events</li>
+							<li>Base CSS styles with support for CSS and HTML front-end customisation</li>
+							<li>Compatible in Firefox, Safari, Chrome and IE6+</li>
+						</ul>
+					</div>
+				</div><!-- /.column-page -->
+					
+				<div id="known-issues" class="column-page">
+					<h2>Known Issues <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<ul class="list">
+							<li>None reported so far</li>
+						</ul>
+					</div>
+				</div><!-- /.column-page -->
+				
+				<div id="release-log" class="column-page">
+					<h2>Release Log <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<h3>v0.1</h3>
+						<ul class="list release-log">
+							<li>First release of the Roller plugin</li>
+						</ul>
+					</div>
+				</div><!-- /.column-page -->
+				
+				<div id="api" class="column-page">
+					<h2>API <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+					
+						<div id="api-settings" class="section">
+							<h3>Settings <a href="#top" class="top-link">&uarr; Back to top</a></h3>
+							<div class="article">
+								<h4>Default values</h4>
+								<code><pre>width:                  'auto',
+height:                 'auto',
+autoRoll:               1,
+autoRollLength:         5000,
+autoRollPauseOnHover:   0,
+animType:               'slide',
+animLength:             1000,
+animFlashColor:         '#ffffff',
+buildNav:               [ 'prev', 'index', 'next' ],
+startOnItemIndex:       0,
+onrollend:              function(){},
+onautorollstart:        function(){},
+onautorollstop:         function(){}</pre></code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">width: <span class="api-value">auto</span> | <span class="api-value"><em>integer</em></span></h3>
+								<p>The width of the Roller area in pixels.<br/>
+								<strong>Default: <span class="code-alt">auto</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">height: <span class="api-value">auto</span> | <span class="api-value"><em>integer</em></span></h3>
+								<p>The height of the Roller area in pixels.<br/>
+								<strong>Default: <span class="code-alt">auto</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">autoRoll: <span class="api-value"><em>boolean</em></span></h3>
+								<p>Enable/disable the auto roll feature.<br/>
+								<strong>Default: <span class="code-alt">1</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">autoRollLength: <span class="api-value"><em>integer</em></span></h3>
+								<p>Length of time (in milliseconds) until the auto roll moves to the next panel.<br/>
+								<strong>Default: <span class="code-alt">5000</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">autoRollPauseOnHover: <span class="api-value"><em>boolean</em></span></h3>
+								<p>Enable/disable the auto roll when the mouse enters the Roller.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">animType: <span class="api-value">none</span> | <span class="api-value">fade</span> | <span class="api-value">flash</span> | <span class="api-value">slide</span> | <span class="api-value">slide-y</span></h3>
+								<p>The animation type for panel transitions.<br/>
+								<strong>Default: <span class="code-alt">slide</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">animLength: <span class="api-value"><em>integer</em></span></h3>
+								<p>Length of time (in milliseconds) for the panel transition animation.<br/>
+								<strong>Default: <span class="code-alt">1000</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">animFlashColor: <span class="api-value"><em>colorhex</em></span></h3>
+								<p>The color hex value for the <span class="code">animType:flash</span> transition.<br/>
+								<strong>Default: <span class="code-alt">#ffffff</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">buildNav: <span class="api-value"><em>array</em></span></h3>
+								<p>An array containing any or none of the string values <span class="code">index</span>, <span class="code">prev</span>, <span class="code">next</span> in the order you wish them to appear. If this is empty no navigation will be built or displayed.<br/>
+								<strong>Default: <span class="code-alt">[ 'prev', 'index', 'next' ]</span></strong></p>
+								<h4>Examples</h4>
+								<code>buildNav: [ 'index' ]</code>
+								<p>This example would only show a navigation list of the panels, e.g. <a href="#">1</a> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a></p>
+								<code>buildNav: [ 'prev', 'next' ]</code>
+								<p>This example would only show the previous and next buttons, e.g. <a href="#">&laquo; Previous</a> <a href="#">Next &raquo;</a></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">startOnItemIndex: <span class="api-value"><em>integer</em></span></h3>
+								<p>The index of the panel to start the Roller on after initialisation. Index numbers start from 0, i.e. the first panel item will be 0.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onrollend: <span class="api-value"><em>function(</em> rollerElem <em>)</em></span></h3>
+								<p>Function to trigger when the panel transition animation finishes.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onautorollstart: <span class="api-value"><em>function(</em> rollerElem <em>)</em></span></h3>
+								<p>Function to trigger when the auto roll starts.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onautorollstop: <span class="api-value"><em>function(</em> rollerElem <em>)</em></span></h3>
+								<p>Function to trigger when the auto roll stops.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+						</div>
+						
+						<div id="api-events" class="section">
+							<h3>Events <a href="#top" class="top-link">&uarr; Back to top</a></h3>
+							<div class="article">
+								<h3 class="api-title">roller_show <span class="api-value"><em>arguments:</em> childIndex</span></h3>
+								<p>Show a specific panel.</p>
+								<h4>Example</h4>
+								<code>$(rollerElem).trigger('roller_show', [ 1 ]);</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">roller_next</h3>
+								<p>Go to the next panel.</p>
+								<h4>Usage</h4>
+								<code>$(rollerElem).trigger('roller_next');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">roller_prev</h3>
+								<p>Go to the previous panel.</p>
+								<h4>Usage</h4>
+								<code>$(rollerElem).trigger('roller_next');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">roller_autoroll_start</h3>
+								<p>Start the autoroll timer.</p>
+								<h4>Usage</h4>
+								<code>$(rollerElem).trigger('roller_next');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">roller_autoroll_stop</h3>
+								<p>Stop the autoroll timer.</p>
+								<h4>Usage</h4>
+								<code>$(rollerElem).trigger('roller_next');</code>
+							</div>
+						</div>
+						
+					</div>
+				</div><!-- /.column-page -->
+				
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

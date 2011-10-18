@@ -1,2 +1,6 @@
 .*
 !.gitignore
+images
+site
+css
+index.html

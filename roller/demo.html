@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Roller Demo</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript" src="jquery.lvl99.roller-0.0.1.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+				
+				$('#basic-roller').roller({
+					animType:				'slide'
+				});
+				
+				$('#interactive-roller').roller({
+					animType:				'slide',
+					animLength:				300,
+					autoRollPauseOnHover:	1,
+					buildNav:				[ 'index' ]
+				});
+				
+				$('#transition-1-roller').roller({
+					animType:				'fade'
+				});
+				
+				$('#transition-2-roller').roller({
+					animType:				'slide'
+				});
+				
+				$('#transition-3-roller').roller({
+					animType:				'slide-y'
+				});
+				
+				$('#transition-4-roller').roller({
+					animType:				'flash',
+					animFlashColor:			'#ffc'
+				});
+				
+				$('#navigation a:eq(0)').click();
+				
+			});
+		</script>
+		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
+		<link type="text/css" rel="stylesheet" href="lvl99.roller.css" />
+		<style type="text/css">
+		<!--
+			.interactive {
+				position:			absolute;
+				right:				0;
+				bottom:				0;
+				background:			rgba(0,0,0,.5);
+				font-size:			16px;
+				font-style:			normal;
+				padding:			10px;
+				line-height:		1em;
+			}
+		
+			.lvl99-roller {
+				width:				638px;
+				height:				150px;
+				margin-bottom:		10px;
+			}
+		-->
+		</style>
+	</head>
+	<body>
+		
+		<div id="top" class="page">
+			
+			<div class="column column-1">
+			
+				<hgroup>
+					<h1>Roller</h1>
+					<h4>jQuery</h4>
+				</hgroup>
+				
+				<ul id="navigation" class="navigation">
+					<li><a href="#basic">Basic Roller</a></li>
+					<li><a href="#interactive">Interactive Roller</a></li>
+					<li><a href="#transitions">Transition Types</a></li>
+				</ul>
+				
+			</div><!-- /.column-1 -->
+			
+			<div class="column column-2">
+				
+				<div id="basic" class="column-page">
+					
+					<h2>Basic Roller <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					
+					<div id="basic-roller" class="lvl99-roller">
+						<div class="example-image">Image 1</div>
+						<div class="example-image example-image-alt">Image 2</div>
+						<div class="example-image">Image 3</div>
+						<div class="example-image example-image-alt">Image 4</div>
+						<div class="example-image">Image 5</div>
+					</div><!-- /#basic-roller -->
+					
+					<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#basic-roller&#39;</span>).roller({
+  animType:             <span style="color: #aa5500">&#39;slide&#39;</span>
+});</pre></div>
+					
+				</div><!-- /#basic -->
+				
+				<div id="interactive" class="column-page">
+					
+					<h2>Interactive Roller <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					
+					<div id="interactive-roller" class="lvl99-roller">
+						<div class="example-image">Panel 1<div class="interactive"><a href="http://www.lvl99.com/">Read more</a></div></div>
+						<div class="example-image example-image-alt">Panel 2<div class="interactive"><a href="http://www.lvl99.com/">Read more</a></div></div>
+						<div class="example-image">Panel 3<div class="interactive"><a href="http://www.lvl99.com/">Read more</a></div></div>
+						<div class="example-image example-image-alt">Panel 4<div class="interactive"><a href="http://www.lvl99.com/">Read more</a></div></div>
+						<div class="example-image">Panel 5<div class="interactive"><a href="http://www.lvl99.com/">Read more</a></div></div>
+					</div><!-- /#interactive-roller -->
+					
+					<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#interactive-roller&#39;</span>).roller({
+  animType:             <span style="color: #aa5500">&#39;slide&#39;</span>,
+  animLength:           <span style="color: #009999">300</span>,
+  autoRollPauseOnHover: <span style="color: #009999">1</span>,
+  buildNav:             [ <span style="color: #aa5500">&#39;index&#39;</span> ]
+});</pre></div>
+
+					
+				</div><!-- /#interactive -->
+				
+				<div id="transitions" class="column-page">
+					
+					<h2>Transition Types <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					
+					<div class="item">
+						<div id="transition-1-roller" class="lvl99-roller">
+							<div class="example-image">Image 1</div>
+							<div class="example-image example-image-alt">Image 2</div>
+							<div class="example-image">Image 3</div>
+							<div class="example-image example-image-alt">Image 4</div>
+							<div class="example-image">Image 5</div>
+						</div><!-- /#transition-1-roller -->
+						
+						<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#transition-1-roller&#39;</span>).roller({
+  animType:    <span style="color: #aa5500">&#39;fade&#39;</span>
+});</pre></div>
+
+					</div><!-- /.item -->
+					
+					<div class="item">
+						<div id="transition-2-roller" class="lvl99-roller">
+							<div class="example-image">Image 1</div>
+							<div class="example-image example-image-alt">Image 2</div>
+							<div class="example-image">Image 3</div>
+							<div class="example-image example-image-alt">Image 4</div>
+							<div class="example-image">Image 5</div>
+						</div><!-- /#transition-2-roller -->
+						
+						<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#transition-2-roller&#39;</span>).roller({
+  animType:    <span style="color: #aa5500">&#39;slide&#39;</span>
+});</pre></div>
+
+					</div><!-- /.item -->
+					
+					<div class="item">
+						<div id="transition-3-roller" class="lvl99-roller">
+							<div class="example-image">Image 1</div>
+							<div class="example-image example-image-alt">Image 2</div>
+							<div class="example-image">Image 3</div>
+							<div class="example-image example-image-alt">Image 4</div>
+							<div class="example-image">Image 5</div>
+						</div><!-- /#transition-3-roller -->
+						
+						<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#transition-3-roller&#39;</span>).roller({
+  animType:    <span style="color: #aa5500">&#39;slide-y&#39;</span>
+});</pre></div>
+
+					</div><!-- /.item -->
+					
+					<div class="item">
+						<div id="transition-4-roller" class="lvl99-roller">
+							<div class="example-image">Image 1</div>
+							<div class="example-image example-image-alt">Image 2</div>
+							<div class="example-image">Image 3</div>
+							<div class="example-image example-image-alt">Image 4</div>
+							<div class="example-image">Image 5</div>
+						</div><!-- /#transition-4-roller -->
+						
+						<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#transition-4-roller&#39;</span>).roller({
+  animType:       <span style="color: #aa5500">&#39;flash&#39;</span>,
+  animFlashColor: <span style="color: #aa5500">&#39;#ffc&#39;</span>
+});</pre></div>
+
+					</div><!-- /.item -->
+					
+				</div><!-- /#transitions -->
+				
+			</div><!-- /.column-2 -->
+			
+		</div><!-- /.page -->
+		
+	</body>
+</html>

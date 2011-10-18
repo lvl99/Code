@@ -1,0 +1,29 @@
+.roller {
+	position:			relative;
+}
+
+.roller-nav {
+	position:			absolute;
+	left:				0;
+	bottom:				0;
+	padding:			0;
+	margin:				0;
+	list-style:			none;
+	z-index:			9999;
+}
+
+	.roller-nav li {
+		display:			inline;
+		list-style:			none;
+	}
+	
+	.roller-nav li a {
+		display:			block;
+		float:				left;
+		padding:			3px 6px;
+	}
+	
+	.roller-nav li.roller-current a {
+		background:			rgba(0,0,0,.5);
+		color:				#fff;
+	}

@@ -2,11 +2,11 @@
 
 	Plugin Name: 			LVL99 Roller
 	Plugin Version: 		0.1
-	Plugin Description:  	Similar to carousel but much better.
+	Plugin Description:  	Carousel type plugin but with more features.
 	
 	Author Name: 			Matt Scheurich
 	Author Email: 			matt@lvl99.com
-	Author URL: 			http://www.lvl99.com/
+	Author URL: 			http://www.lvl99.com/code/
 	
 */
 
@@ -26,9 +26,9 @@
 			animFlashColor:			'#ffffff',
 			buildNav:				[ 'prev', 'index', 'next' ],
 			startOnItemIndex:		0,
-			onRollEnd:				function(){},
-			onAutoRollStart:		function(){},
-			onAutoRollStop:			function(){}
+			onrollend:				function(){},
+			onautorollstart:		function(){},
+			onautorollstop:			function(){}
 		}, options );
 		
 		return this.each( function() {
@@ -131,7 +131,18 @@
 			$subject.bind('roller_show', function(event, itemIndex) {
 			
 				// Checks
+				// -- If it's currently in transition
 				if ( $(this).is('.roller-transition') ) return;
+				
+				// -- If it's referencing a specific item via ID
+				if ( typeof itemIndex == 'string' ) {
+					if ( !itemIndex.match(/^#/) ) itemIndex = '#'+itemIndex;
+					if ( this.rollerSettings.items.filter(itemIndex).length > 0 ) {
+						itemIndex = this.rollerSettings.items.index(itemIndex);
+					}
+				}
+				
+				// -- If the selected item is already showing
 				if ( this.rollerSettings.items.eq(itemIndex).is('.roller-current') ) return;
 				
 				// Stop autoroll
@@ -206,7 +217,7 @@
 			}).bind('roller_end', function() {
 				$(this).removeClass('roller-transition');
 				if ( this.rollerSettings.autoRoll ) $(this).trigger('roller_autoroll_start');
-				if ( this.rollerSettings.onRollEnd ) this.rollerSettings.onRollEnd( this );
+				if ( this.rollerSettings.onrollend ) this.rollerSettings.onrollend( this );
 			
 			// -- Go to next item
 			}).bind( 'roller_next', function() {
@@ -227,12 +238,12 @@
 					this.rollerSettings.autoRollTimer = setTimeout( function(){
 						roller.trigger('roller_next');
 					}, this.rollerSettings.autoRollLength );
-					if ( settings.onAutoRollStart ) settings.onAutoRollStart( this );
+					if ( settings.onautorollstart ) settings.onautorollstart( this );
 					
 				// -- Auto roll stop
 				}).bind( 'roller_autoroll_stop', function() {
 					clearTimeout( this.rollerSettings.autoRollTimer );
-					if ( settings.onAutoRollStop ) settings.onAutoRollStop( this );
+					if ( settings.onautorollstop ) settings.onautorollstop( this );
 					
 				});
 				
@@ -253,6 +264,33 @@
 			
 		});
 	
+	};
+	
+	$.fn.rollerShow = function( itemIndex ) {
+		
+		return this.each( function() {
+			
+			var $subject;
+			
+			// Check if item is the roller
+			if ( this.rollerSettings ) {
+				$subject = $(this);
+				
+			// Go through parents to find roller
+			} else {
+				$(this).parents().each( function() {
+					if ( this.rollerSettings ) {
+						$subject = $(this);
+						return false;
+					}
+				});
+			}
+			
+			// Trigger the show
+			$subject.trigger('roller_show', [ itemIndex ]);
+			
+		});
+		
 	};
 
 })();
