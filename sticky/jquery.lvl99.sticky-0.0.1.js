@@ -33,7 +33,7 @@
 					trigger = {};
 					
 				if ( !$('#debug-sticky-'+$elem.attr('id')).length ) {
-					$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span><br/>'+($.data(elem, 'stickyTrackTop') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'stickyTrackTop') ? '' : '</del>')+' '+($.data(elem, 'stickyTrackLeft') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'stickyTrackLeft') ? '' : '</del>')+'</div>');
+					$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span> <span class="sticky-type">'+$.data(elem, 'stickyType')+'</span><br/>'+($.data(elem, 'stickyTrackTop') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'stickyTrackTop') ? '' : '</del>')+' '+($.data(elem, 'stickyTrackLeft') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'stickyTrackLeft') ? '' : '</del>')+'</div>');
 				}
 				var debug = $('#debug-sticky-'+$elem.attr('id'));
 				debug.find('.sticky-scrollTop').text(scrollTop+' / '+($.data(elem, 'scrollTop')-$.data(elem, 'bufferTop'))+' / '+$.data(elem, 'scrollTopMax'));
@@ -149,17 +149,26 @@
 	
 	}
 	
+	function stickyCheckBuffer( _elem, _buffer ) {
+		if ( /(width|height)/i.test(_buffer) ) {
+			if ( /width/i.test(_buffer) ) return $(_elem).outerWidth();
+			if ( /height/i.test(_buffer) ) return $(_elem).outerHeight();
+		} else {
+			return _buffer;
+		}
+	}
+	
 	window.onscroll = stickyElements;
 	
-	$.fn.sticky = function( options ) {
+	$.fn.sticky = function( _options ) {
 		
 		var settings = $.extend({
-			stickyType:			'auto', // absolute | fixed | auto
+			stickyType:			'absolute', // absolute | fixed | auto
 			stickyTrack:		'top left', // top &| left
 			bufferLeft:			0,
 			bufferTop:			10,
-			bufferRight:		0,
-			bufferBottom:		0,
+			bufferRight:		'width',
+			bufferBottom:		'height',
 			constrainTo:		'',
 			oninit:				function( stickyElem ){},
 			onscroll:			function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ){},
@@ -167,27 +176,45 @@
 			onscrolltopend:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ){},
 			onscrollleftstart:	function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ){},
 			onscrollleftend:	function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ){}
-		}, options );
+		}, _options );
 		
 		return this.each( function() {
 		
-			var elemOffset = $(this).offset();
-			$.data(this, 'stickyTrackTop', /top/i.test(settings.stickyTrack) );
-			$.data(this, 'stickyTrackLeft', /left/i.test(settings.stickyTrack) );
-			$.data(this, 'scrollTop', elemOffset.top);
-			$.data(this, 'scrollLeft', elemOffset.left);
-			$.data(this, 'scrollTopMax', $(document).height()-settings.bufferBottom );
-			$.data(this, 'scrollLeftMax', $(document).width()-settings.bufferRight );
-			$.data(this, 'bufferTop', settings.bufferTop);
-			$.data(this, 'bufferLeft', settings.bufferLeft);
-			$.data(this, 'bufferRight', settings.bufferRight);
-			$.data(this, 'bufferBottom', settings.bufferBottom);
-			if ( typeof settings.onscroll == 'function' ) $.data(this, 'onscroll', settings.onscroll);
-			if ( typeof settings.onscrolltopstart == 'function' ) $.data(this, 'onscrolltopstart', settings.onscrolltopstart);
-			if ( typeof settings.onscrolltopend == 'function' ) $.data(this, 'onscrolltopend', settings.onscrolltopend);
-			if ( typeof settings.onscrollleftstart == 'function' ) $.data(this, 'onscrollleftstart', settings.onscrollleftstart);
-			if ( typeof settings.onscrollleftend == 'function' ) $.data(this, 'onscrollleftend', settings.onscrollleftend);
-			$.data(this, 'funcTriggered', {
+			var elem = this;
+			
+			// Get the position relative to the document
+			var elemPos = $(this).offset();
+			
+			// Properties
+			$.data(elem, 'stickyTrackTop', /top/i.test(settings.stickyTrack) );
+			$.data(elem, 'stickyTrackLeft', /left/i.test(settings.stickyTrack) );
+			$.data(elem, 'bufferTop', stickyCheckBuffer(elem, settings.bufferTop) );
+			$.data(elem, 'bufferLeft', stickyCheckBuffer(elem, settings.bufferLeft) );
+			$.data(elem, 'bufferRight', stickyCheckBuffer(elem, settings.bufferRight) );
+			$.data(elem, 'bufferBottom', stickyCheckBuffer(elem, settings.bufferBottom) );
+			$.data(elem, 'originTop', elemPos.top);
+			$.data(elem, 'originLeft', elemPos.left);
+			$.data(elem, 'scrollTop', elemPos.top);
+			$.data(elem, 'scrollLeft', elemPos.left);
+			$.data(elem, 'scrollBottom', $(document).height()-$.data(elem, 'bufferBottom') );
+			$.data(elem, 'scrollRight', $(document).width()-$.data(elem, 'bufferRight') );
+			
+			// If the parent(s) is relative, get the position relative to the parent
+			$(elem).parents().each( function() {
+				if ( $(this).css('position') == 'relative' ) {
+					var parentPos = $(this).offset();
+					$.data(elem, 'originTop', $.data(elem, 'originTop')-parentPos.top );
+					$.data(elem, 'originLeft', $.data(elem, 'originLeft')-parentPos.left );
+				}
+			});
+			
+			// Methods
+			if ( typeof settings.onscroll == 'function' ) $.data(elem, 'onscroll', settings.onscroll);
+			if ( typeof settings.onscrolltopstart == 'function' ) $.data(elem, 'onscrolltopstart', settings.onscrolltopstart);
+			if ( typeof settings.onscrolltopend == 'function' ) $.data(elem, 'onscrolltopend', settings.onscrolltopend);
+			if ( typeof settings.onscrollleftstart == 'function' ) $.data(elem, 'onscrollleftstart', settings.onscrollleftstart);
+			if ( typeof settings.onscrollleftend == 'function' ) $.data(elem, 'onscrollleftend', settings.onscrollleftend);
+			$.data(elem, 'funcTriggered', {
 				onscrolltopstart: 		0,
 				onscrolltopend:			0,
 				onscrollleftstart:		0,
@@ -196,20 +223,28 @@
 			
 			// Set constraints based on element selector/object
 			if ( settings.constrainTo && $(settings.constrainTo).length == 1 ) {
-				$.data(this, 'scrollTopMax', $(settings.constrainTo).outerHeight()-settings.bufferBottom+$.data(this, 'scrollTop') );
-				$.data(this, 'scrollLeftMax', $(settings.constrainTo).outerWidth()-settings.bufferRight+$.data(this, 'scrollLeft') );
+				$.data(elem, 'scrollBottom', $(settings.constrainTo).outerHeight()-$.data(elem, 'bufferBottom')+$.data(elem, 'originTop') );
+				$.data(elem, 'scrollRight', $(settings.constrainTo).outerWidth()-$.data(elem, 'bufferRight')+$.data(elem, 'originLeft') );
 			}
 			
 			// Determine stickyType if not set to absolute or fixed
-			// Known issue: Safari and Internet Explorer <= 7 don't support position:fixed (IE) or has trouble with position:fixed inside frames (Safari)
-			if ( !/(absolute|fixed)/i.test(settings.stickyType) ) if ( /(Macintosh|Windows).*(Safari|MSIE [1-7])/i.test(navigator.userAgent) ) settings.stickyType = 'absolute';
-			$.data(this, 'stickyType', settings.stickyType);
+			// Known issue: Safari and Internet Explorer <= 6 don't support position:fixed (IE) or has trouble with position:fixed inside frames (Safari)
+			if ( !/(absolute|fixed)/i.test(settings.stickyType) ) {
+				if ( /Safari/i.test(navigator.userAgent) && $(elem).parents('frame') || /MSIE [1-6]/i.test(navigator.userAgent) ) {
+					settings.stickyType = 'absolute';
+				} else {
+					settings.stickyType = 'fixed';
+				}
+			}
+			$.data(elem, 'stickyType', settings.stickyType);
 			
 			// Add sticky element to the list
-			$.data(document, 'stickyElems').push(this);
+			$.data(document, 'stickyElems').push(elem);
+			
+			console.log( $(elem).attr('id'), $.data(elem) );
 			
 			// Trigger init event
-			if ( typeof settings.oninit == 'function' ) settings.oninit( this );
+			if ( typeof settings.oninit == 'function' ) settings.oninit( elem );
 			
 			//$('body').append('<div style="background: green; width: '+($.data(this, 'scrollLeftMax')-$.data(this, 'scrollLeft'))+'px; height: '+($.data(this, 'scrollTopMax')-$.data(this, 'scrollTop'))+'px; position: absolute; left: '+$.data(this, 'scrollLeft')+'px; top: '+$.data(this, 'scrollTop')+'px; overflow: hidden;">&nbsp;</div>');
 			

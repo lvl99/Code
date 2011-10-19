@@ -21,34 +21,35 @@
 				border-radius:			10px;
 			}
 			
-			.column-2 {
-				height:				2000px;
+			#race {
+				position:				relative;
+				height:					1000px;
 			}
 			
 			#constrain {
-				height:				1000px;
+				height:					600px;
 			}
 			
 			#runner-green {
-				position:			absolute;
-				left:				0;
-				top:				0;
-				width:				293px;
-				height:				270px;
-				background:			transparent url('demo/runner-green.png') no-repeat 0 0;
+				position:				absolute;
+				left:					0;
+				top:					0;
+				width:					293px;
+				height:					270px;
+				background:				transparent url('demo/runner-green.png') no-repeat 0 0;
 			}
 			
 			#runner-pink {
-				position:			absolute;
-				left:				0;
-				top:				0;
-				width:				293px;
-				height:				270px;
-				background:			transparent url('demo/runner-pink.png') no-repeat 0 0;
+				position:				absolute;
+				left:					0;
+				top:					0;
+				width:					293px;
+				height:					270px;
+				background:				transparent url('demo/runner-pink.png') no-repeat 0 0;
 			}
 			
 			.runner-axis {
-				position:			relative;
+				position:				relative;
 			}
 			
 			.frame-1 {
@@ -70,8 +71,8 @@
 			#line {
 				background:				transparent url('demo/line.png') no-repeat 0 0;
 				position:				absolute;
-				left:					100px;
-				top:					1400px;
+				left:					-100px;
+				bottom:					0px;
 				width:					831px;
 				height:					151px;
 				z-index:				9999;
@@ -87,26 +88,35 @@
 		<script type="text/javascript" src="jquery.lvl99.sticky-0.0.1.js"></script>
 		<script type="text/javascript">
 			$(document).ready( function() {
+			
+				function run( runner ) {
+					if ( $.data(runner, 'frameNum') == undefined ) {
+						$.data(runner, 'frameNum', 0);
+						$.data(runner, 'frameCounter', 0);
+					}
+					$.data(runner, 'frameCounter', $.data(runner, 'frameCounter')+1 );
+					if ( $.data(runner, 'frameCounter') >= 12 ) {
+						$.data(runner, 'frameNum', $.data(runner, 'frameNum')+1 );
+						if ( $.data(runner, 'frameNum') >= 4 ) $.data(runner, 'frameNum', 0);
+						$.data(runner, 'frameCounter', 0);
+					}
+					switch( $.data(runner, 'frameNum') ) {
+						case 0: case 2:
+							if ( !$(runner).find('.runner').hasClass('frame-1') ) $(runner).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+							break;
+						case 1:
+							if ( !$(runner).find('.runner').hasClass('frame-2') ) $(runner).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
+							break;
+						case 3:
+							if ( !$(runner).find('.runner').hasClass('frame-3') ) $(runner).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
+							break;
+					}
+				}
 				
 				$('#normal-sticky').sticky({
 					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
-						if ( !$.data(stickyElem, 'frameNum') ) $.data(stickyElem, 'frameNum', 0);
-						if ( scrollTop%50 == 0 ) {
-							$.data(stickyElem, 'frameNum', $.data(stickyElem, 'frameNum')+1 );
-							if ( $.data(stickyElem, 'frameNum') == 4 ) $.data(stickyElem, 'frameNum', 0);
-						}
 						if ( scrollTop < 1246 ) {
-							switch( $.data(stickyElem, 'frameNum') ) {
-								case 0: case 2:
-									if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
-									break;
-								case 1:
-									if ( !$(stickyElem).find('.runner').hasClass('frame-2') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
-									break;
-								case 3:
-									if ( !$(stickyElem).find('.runner').hasClass('frame-3') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
-									break;
-							}
+							run( stickyElem );
 						} else {
 							if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
 							if ( !$('#line').hasClass('line-finish') ) $('#line').addClass('line-finish');
@@ -124,22 +134,7 @@
 				$('#constrain-sticky').sticky({
 					constrainTo:	$('#constrain-sticky').parent(),
 					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
-						if ( !$.data(stickyElem, 'frameNum') ) $.data(stickyElem, 'frameNum', 0);
-						if ( scrollTop%50 == 0 ) {
-							$.data(stickyElem, 'frameNum', $.data(stickyElem, 'frameNum')+1 );
-							if ( $.data(stickyElem, 'frameNum') == 4 ) $.data(stickyElem, 'frameNum', 0);
-						}
-						switch( $.data(stickyElem, 'frameNum') ) {
-							case 0: case 2:
-								if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
-								break;
-							case 1:
-								if ( !$(stickyElem).find('.runner').hasClass('frame-2') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
-								break;
-							case 3:
-								if ( !$(stickyElem).find('.runner').hasClass('frame-3') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
-								break;
-						}
+						run( stickyElem );
 					},
 					onscrolltopstart: function( stickyElem ) {
 						if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
@@ -181,24 +176,40 @@
 			</div><!-- /.column-1 -->
 			
 			<div class="column column-2">
-				
-				<div id="normal-sticky" class="lvl99-sticky">
-					<h2>Normal Sticky Element</h2>
-					<div class="runner-axis">
-						<div id="runner-green" class="runner"></div>
-					</div>
+			
+				<div class="column-page">
+					<p>Sticky allows you flexibility when working with elements you want stuck. In the case of these two examples, the sticky methods allow for extra functionality. For the most part, to stick an element to its position on a page is done like so:</p>
+					<code><pre>$('#normal-sticky').sticky();</pre></code>
+					<p>Constraining an element to being within a parent is just as easy too:</p>
+					<code><pre>$('#constrain-sticky').sticky({
+	constrainTo:	'parent'
+});</pre></code>
+					<p>In the case of this demo I've actually used the custom Sticky events to provide interaction with the stuck element and others at certain points of the scroll using the <span class="code">onscroll</span>, <span class="code">onscrolltopstart</span> and <span class="code">onscrolltopend</span> methods.</p>
 				</div>
 				
-				<div id="constrain">
-					<div id="constrain-sticky" class="lvl99-sticky">
-						<h2>Constrained Sticky Element</h2>
-						<div class="runner-axis">
-							<div id="runner-pink" class="runner"></div>
+				<div id="race">
+					<div id="normal-sticky" class="lvl99-sticky">
+						<h2>Normal Sticky Element</h2>
+						<div class="runner-axis"><!-- position:relative -->
+							<div id="runner-green" class="runner"></div><!-- position:absolute -->
 						</div>
 					</div>
+					
+					<div id="constrain">
+						<div id="constrain-sticky" class="lvl99-sticky">
+							<h2>Constrained Sticky Element</h2>
+							<div class="runner-axis"><!-- position:relative -->
+								<div id="runner-pink" class="runner"></div><!-- position:absolute -->
+							</div>
+						</div>
+					</div>
+					
+					<div id="line"></div>
 				</div>
 				
-				<div id="line"></div>
+				<div class="column-page">
+					<p>Something more here!</p>
+				</div>
 				
 			</div><!-- /.column-2 -->
 			
