@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Sticky Readme</title>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+				
+			});
+		</script>
+		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
+		<style type="text/css">
+		<!--
+			
+		-->
+		</style>
+	</head>
+	<body>
+		
+		<div id="top" class="page">
+			
+			<div class="column column-1">
+				<hgroup>
+					<h1>Sticky</h1>
+					<h4>jQuery</h4>
+				</hgroup>
+				
+				<ul class="navigation">
+					<li><a href="#about">About</a></li>
+					<li><a href="#features">Features</a></li>
+					<li><a href="#known-issues">Known Issues</a></li>
+					<li><a href="#release-log">Release Log</a></li>
+					<li><a href="#api">API</a>
+						<ul class="sub-navigation">
+							<li><a href="#api-settings">&mdash; Settings</a></li>
+							<li><a href="#api-events">&mdash; Data</a></li>
+						</ul>
+					</li>
+					<li><a href="demo.html">Demo</a></li>
+					<li><a href="http://lvl99.com/code">LVL99<span style="color: #f37a9c;">/</span><span style="color: #e3f37a;">CODE</span></a></li>
+					<li class="donate">
+						<p><strong><big>Like this plugin?</big></strong><br/>
+						Donate to show your appreciation and support!</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="XPW9TNXVUBYQL">
+							<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</li>
+				</ul>
+			</div>
+			
+			<div class="column column-2">
+				
+				<div id="about" class="column-page">
+					<h2>About <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+						<div class="content">
+							<p><strong>Sticky</strong> helps to keep handy elements on the page while scrolling. Handy for persistent navigation and advertising.<p>
+						</div>
+				</div><!-- /.column-page -->
+					
+				<div id="features" class="column-page">
+					<h2>Features <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+						<div class="content">
+							<ul class="list">
+								<li>Declare an element Sticky; keep it within the page or within a parent element</li>
+								<li>Support for scrolling on both the X and/or Y axis</li>
+								<li>Supports changeable sticky type: 'absolute' and 'fixed'</li>
+								<li>Sticky specific methods allow you to trigger at various sticky events</li>
+								<li>Compatible in Firefox, Safari, Chrome and IE6+</li>
+							</ul>
+						</div>
+				</div><!-- /.column-page -->
+					
+				<div id="known-issues" class="column-page">
+					<h2>Known Issues <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<ul class="list">
+							<li>In Webkit powered browsers there seems to be a funny issue regarding scrollLeft and the Sticky element's background (only noticeable if the background is not transparent)</li>
+							<li>A 'flash of unstyled text' (FOUT) in Firefox can throw off offsets and positions</li>
+						</ul>
+					</div>
+				</div><!-- /.column-page -->
+				
+				<div id="release-log" class="column-page">
+					<h2>Release Log <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<h3>v0.1</h3>
+						<ul class="list release-log">
+							<li>First release of the Sticky plugin</li>
+						</ul>
+					</div>
+				</div><!-- /.column-page -->
+				
+				<div id="api" class="column-page">
+					<h2 id="api-settings">API Settings <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<div class="section">
+							<h3>Default Values</h3>
+							<div class="article">
+								<code><pre>type:                   'auto',
+track:                  'xy',
+bufferLeft:             0,
+bufferTop:              0,
+bufferRight:            'width',
+bufferBottom:           'height',
+constrainTo:            '',
+oninit:                 function(){},
+onscroll:               function(){},
+onscrolltopstart:       function(){},
+onscrolltopend:         function(){},
+onscrollleftstart:      function(){},
+onscrollleftend:        function(){}</pre></code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">type: <span class="api-value">auto</span> | <span class="api-value">absolute</span> | <span class="api-value">fixed</span></h3>
+								<p>The type of sticking operation.<br/>
+								<strong>Default: <span class="code-alt">auto</span></strong></p>
+								<ul>
+									<li><span class="label"><span class="code">auto</span></span> Figures out the best sticking operation depending on the browser</li>
+									<li><span class="label"><span class="code">absolute</span></span> Sticks elements using absolute measurements relative to the document</li>
+									<li><span class="label"><span class="code">fixed</span></span> Sticks elements using fixed measurements relative to the screen</li>
+								</ul>
+							</div>
+							<div class="article">
+								<h3 class="api-title">track: <span class="api-value">x</span> &| <span class="api-value">y</span></h3>
+								<p>Which axes to track.<br/>
+								<strong>Default: <span class="code-alt">xy</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">bufferLeft: <span class="api-value"><em>integer</em></span></h3>
+								<p>The space left of the element to start scrolling.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">bufferTop: <span class="api-value"><em>integer</em></span></h3>
+								<p>The space above the element to start scrolling.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">bufferRight: <span class="api-value"><em>integer</em></span></h3>
+								<p>The space right of the element to stop scrolling.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">bufferBottom: <span class="api-value"><em>integer</em></h3>
+								<p>The space below element to stop scrolling.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">constrainTo: <span class="api-value">parent</span> | <span class="api-value"><em>element</em></span></h3>
+								<p>The element to use as the boundary box for the stickied element. <span class="code">element</span><br/>
+								<strong>Default: <span class="code-alt">undefined</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">oninit: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the element has been stickied.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onscroll: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the <span class="code">$(window).scrollLeft()</span> or <span class="code">$(window).scrollTop()</span> is within the stickied element's scroll area.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onscrolltopstart: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the element reaches its highest point within its scroll area on the Y axis.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onscrolltopend: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the element reaches its lowest point within its scroll area on the Y axis.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onscrollleftstart: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the element reaches its highest point within its scroll area on the X axis.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">onscrollleftend: <span class="api-value"><em>function(</em> stickyObject <em>)</em></span></h3>
+								<p>Function to trigger when the element reaches its highest point within its scroll area on the X axis.<br/>
+								<strong>Default: <span class="code-alt">function(){}</span></strong></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title"><span class="api-value">stickyObject</span></h3>
+								<p>The object returned when triggering a sticky event.</p>
+								<code><pre>{
+  elem:               element,
+  scrollTop:          $(window).scrollTop(),
+  scrollLeft:         $(window).scrollLeft(),
+  scrollTopAmount:    $(window).scrollTop()-$.data(element, 'scrollTop'),
+  scrollLeftAmount:   $(window).scrollLeft()-$.data(element, 'scrollLeft')
+}</pre></code>
+							</div>
+						</div>
+					</div>
+				</div>
+					
+				<div id="api-data" class="column-page">
+					<h2>API Data <a href="#top" class="top-link">&uarr; Back to top</a></h2>
+					<div class="content">
+						<div class="section">
+							<div class="article">
+								<p>Specific data about the stickied element is attached to it using the <a href="http://api.jquery.com/jQuery.data/" target="_blank"><span class="code-alt">jQuery.data()</span></a> or <a href="http://api.jquery.com/data/" target="_blank"><span class="code-alt">jQuery.fn.data()</span></a> methods. This data can be both set and retrieved.</p>
+								<p>To view all the data attached to an element, use <span class="code">console.log( $.data(elem) );</span></p>
+							</div>
+							<div class="article">
+								<h3 class="api-title">document.stickyDebug: <span class="api-value"><em>boolean</em></span></h3>
+								<p>Enable the debug output for stickied elements. Good idea to call this first before sticking any elements.<br/>
+								<strong>Default: <span class="code-alt">0</span></strong></p>
+								<h4>Usage</h4>
+								<code>$.data(document, 'stickyDebug', 1);</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.stickyType: <span class="api-value">absolute</span> | <span class="api-value">fixed</span></h3>
+								<p>The sticking type.</p>
+								<code>$.data(element, 'stickyType');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.stickyTrackX: <span class="api-value"><em>boolean</em></span></h3>
+								<p>Track the X axis.</p>
+								<code>$.data(element, 'stickyTrackX');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.stickyTrackY: <span class="api-value"><em>boolean</em></span></h3>
+								<p>Track the Y axis.</p>
+								<code>$.data(element, 'stickyTrackY');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.scrollLeft: <span class="api-value"><em>integer</em></span></h3>
+								<p>The X co-ordinate start of the scroll area.</p>
+								<code>$.data(element, 'scrollLeft');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.scrollTop: <span class="api-value"><em>integer</em></span></h3>
+								<p>The Y co-ordinate start of the scroll area.</p>
+								<code>$.data(element, 'scrollTop');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.scrollRight: <span class="api-value"><em>integer</em></span></h3>
+								<p>The X co-ordinate end of the scroll area.</p>
+								<code>$.data(element, 'scrollRight');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.scrollBottom: <span class="api-value"><em>integer</em></span></h3>
+								<p>The Y co-ordinate end of the scroll area.</p>
+								<code>$.data(element, 'scrollBottom');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.bufferLeft: <span class="api-value"><em>integer</em></span></h3>
+								<p>The amount to offset the start of the scroll area on the X axis.</p>
+								<code>$.data(element, 'bufferLeft');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.bufferTop: <span class="api-value"><em>integer</em></span></h3>
+								<p>The amount to offset the start of the scroll area on the Y axis.</p>
+								<code>$.data(element, 'bufferTop');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.bufferRight: <span class="api-value"><em>integer</em></span></h3>
+								<p>The amount to offset the end of the scroll area on the X axis.</p>
+								<code>$.data(element, 'bufferRight');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.bufferBottom: <span class="api-value"><em>integer</em></span></h3>
+								<p>The amount to offset the end of the scroll area on the Y axis.</p>
+								<code>$.data(element, 'bufferBottom');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.constrainTo: <span class="api-value"><em>element</em></span></h3>
+								<p>The element to constrain the stickied element to.</p>
+								<p><strong>NOTE:</strong> The scroll area is taken from this element so setting it to a different element after the initialisation won't change the stickied element's scroll area.</p>
+								<code>$.data(element, 'constrainTo');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.originLeft: <span class="api-value"><em>integer</em></span></h3>
+								<p>The stickied element's original X start co-ordinate. This is relative to the parent/constrainTo element if <span class="code">position:relative</span> or <span class="code">position:fixed</span>, or relative to the document if parent/constrainTo element is <span class="code">position:absolute</span>.</p>
+								<code>$.data(element, 'originLeft');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.originTop: <span class="api-value"><em>integer</em></span></h3>
+								<p>The stickied element's original Y start co-ordinate. This is relative to the parent/constrainTo element if <span class="code">position:relative</span> or <span class="code">position:fixed</span>, or relative to the document if parent/constrainTo element is <span class="code">position:absolute</span>.</p>
+								<code>$.data(element, 'originTop');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.originRight: <span class="api-value"><em>integer</em></span></h3>
+								<p>The stickied element's original X end co-ordinate. This is relative to the parent/constrainTo element if <span class="code">position:relative</span> or <span class="code">position:fixed</span>, or relative to the document if parent/constrainTo element is <span class="code">position:absolute</span>.</p>
+								<code>$.data(element, 'originRight');</code>
+							</div>
+							<div class="article">
+								<h3 class="api-title">element.originBottom: <span class="api-value"><em>integer</em></span></h3>
+								<p>The stickied element's original Y end co-ordinate. This is relative to the parent/constrainTo element if <span class="code">position:relative</span> or <span class="code">position:fixed</span>, or relative to the document if parent/constrainTo element is <span class="code">position:absolute</span>.</p>
+								<code>$.data(element, 'originBottom');</code>
+							</div>
+						</div>
+						
+					</div>
+				</div><!-- /.column-page -->
+				
+			</div>
+			
+		</div>
+		
+	</body>
+</html>

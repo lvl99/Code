@@ -6,80 +6,79 @@
 		<style type="text/css">
 		<!--
 			
-			.lvl99-sticky {
-				width:					250px;
+			@import url(http://fonts.googleapis.com/css?family=Satisfy);
+			
+			#sticky {
+				position:				absolute;
+				top:					100px;
+				left:					850px;
+				background:				#fff799;
+				color:					#000;
+				font-family:			'Satisfy';
+				font-size:				36px;
+				width:					100px;
 				height:					100px;
-				float:					left;
-				margin-right:			20px;
-				padding:				10px;
-				background:				#76707d;
-				border-top:				solid 1px #7d7783;
-				border-left:			solid 1px #7d7783;
-				border-right:			solid 1px #524c59;
-				border-bottom:			solid 1px #524c59;
+				padding:				30px;
+				transform:				rotate(5deg);
+				-moz-transform:			rotate(5deg);
+				-webkit-transform:		rotate(5deg);
+				-ms-transform:			rotate(5deg);
+				-o-transform:			rotate(5deg);
 				box-shadow:				0 0 10px rgba(0,0,0,.5);
-				border-radius:			10px;
+				z-index:				9998;
+				text-align:				center;
+			}
+			
+			#sticky a {
+				font-family:			Helvetica, Arial, sans-serif;
+				font-size:				14px;
 			}
 			
 			#race {
+				background:				#595461;
+				box-shadow:				0 0 10px rgba(0,0,0,.5);
 				position:				relative;
 				height:					1000px;
-			}
-			
-			#constrain {
-				height:					600px;
-			}
-			
-			#runner-green {
-				position:				absolute;
-				left:					0;
-				top:					0;
-				width:					293px;
-				height:					270px;
-				background:				transparent url('demo/runner-green.png') no-repeat 0 0;
-			}
-			
-			#runner-pink {
-				position:				absolute;
-				left:					0;
-				top:					0;
-				width:					293px;
-				height:					270px;
-				background:				transparent url('demo/runner-pink.png') no-repeat 0 0;
-			}
-			
-			.runner-axis {
-				position:				relative;
-			}
-			
-			.frame-1 {
-				background-position:	0 0 !important;
-			}
-			
-			.frame-2 {
-				background-position:	0 -270px !important;
-			}
-			
-			.frame-3 {
-				background-position:	0 -540px !important;
-			}
-			
-			.frame-4 {
-				background-position:	0 -810px !important;
+				margin-bottom:			60px;
+				clear:					both;
+				border-radius:			10px;
 			}
 			
 			#line {
 				background:				transparent url('demo/line.png') no-repeat 0 0;
 				position:				absolute;
-				left:					-100px;
-				bottom:					0px;
+				left:					-20px;
+				bottom:					-30px;
 				width:					831px;
 				height:					151px;
-				z-index:				9999;
+				z-index:				9997;
 			}
 			
-			.line-finish {
-				background-position:	0 -151px !important;
+			#constrain {
+				position:				relative;
+				float:					right;
+				width:					350px;
+				height:					800px;
+			}
+			
+			#runner-green {
+				position:				absolute;
+				left:					100px;
+				top:					0;
+				width:					293px;
+				height:					270px;
+				background:				transparent url('demo/runner-green.png') no-repeat 0 0;
+				z-index:				9996;
+			}
+			
+			#runner-pink {
+				position:				absolute;
+				left:					100px;
+				top:					0;
+				width:					293px;
+				height:					270px;
+				background:				transparent url('demo/runner-pink.png') no-repeat 0 0;
+				z-index:				9999;
 			}
 			
 		-->
@@ -89,58 +88,66 @@
 		<script type="text/javascript">
 			$(document).ready( function() {
 			
-				function run( runner ) {
-					if ( $.data(runner, 'frameNum') == undefined ) {
-						$.data(runner, 'frameNum', 0);
-						$.data(runner, 'frameCounter', 0);
+				$.data(document, 'stickyDebug', 0);
+				
+				$('#sticky').sticky();
+			
+				function run( sticky ) {
+					if ( sticky.scrollTop < 800 ) $('#sticky .text').text('Go!');
+					if ( $.data(sticky.elem, 'frameNum') == undefined ) {
+						$.data(sticky.elem, 'frameNum', 0);
+						$.data(sticky.elem, 'frameCounter', 0);
 					}
-					$.data(runner, 'frameCounter', $.data(runner, 'frameCounter')+1 );
-					if ( $.data(runner, 'frameCounter') >= 12 ) {
-						$.data(runner, 'frameNum', $.data(runner, 'frameNum')+1 );
-						if ( $.data(runner, 'frameNum') >= 4 ) $.data(runner, 'frameNum', 0);
-						$.data(runner, 'frameCounter', 0);
+					$.data(sticky.elem, 'frameCounter', $.data(sticky.elem, 'frameCounter')+1 );
+					if ( $.data(sticky.elem, 'frameCounter') >= 12 ) {
+						$.data(sticky.elem, 'frameNum', $.data(sticky.elem, 'frameNum')+1 );
+						if ( $.data(sticky.elem, 'frameNum') >= 4 ) $.data(sticky.elem, 'frameNum', 0);
+						$.data(sticky.elem, 'frameCounter', 0);
 					}
-					switch( $.data(runner, 'frameNum') ) {
+					switch( $.data(sticky.elem, 'frameNum') ) {
 						case 0: case 2:
-							if ( !$(runner).find('.runner').hasClass('frame-1') ) $(runner).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
+							$(sticky.elem).css('background-position', '0 0');
 							break;
 						case 1:
-							if ( !$(runner).find('.runner').hasClass('frame-2') ) $(runner).find('.runner').removeClass('frame-1 frame-3 frame-4').addClass('frame-2');
+							$(sticky.elem).css('background-position', '0 -270px');
 							break;
 						case 3:
-							if ( !$(runner).find('.runner').hasClass('frame-3') ) $(runner).find('.runner').removeClass('frame-1 frame-2 frame-4').addClass('frame-3');
+							$(sticky.elem).css('background-position', '0 -540px');
 							break;
 					}
 				}
 				
-				$('#normal-sticky').sticky({
-					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
-						if ( scrollTop < 1246 ) {
-							run( stickyElem );
-						} else {
-							if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
-							if ( !$('#line').hasClass('line-finish') ) $('#line').addClass('line-finish');
-						}
+				$('#runner-green').sticky({
+					track:				'y',
+					constrainTo:		'parent',
+					bufferTop:			200,
+					bufferBottom:		-200,
+					onscroll:			run,
+					onscrolltopstart: function( sticky ) {
+						$(sticky.elem).css('background-position', '0 0px');
+						$('#line').css('background-position', '0 0');
+						$('#sticky .text').text('Sticky!');
 					},
-					onscrolltopstart: function( stickyElem ) {
-						if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
-						$('#line').removeClass('line-finish');
-					},
-					onscrolltopend: function( stickyElem ) {
-						if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
+					onscrolltopend: function( sticky ) {
+						$(sticky.elem).css('background-position', '0 -810px');
+						$('#line').css('background-position', '0 -151px');
+						$('#sticky .text').text('Winner!');
 					}
 				});
 				
-				$('#constrain-sticky').sticky({
-					constrainTo:	$('#constrain-sticky').parent(),
-					onscroll:		function( stickyElem, elemTop, elemLeft, scrollTop, scrollLeft ) {
-						run( stickyElem );
+				$('#runner-pink').sticky({
+					track:				'y',
+					constrainTo:		'parent',
+					bufferTop:			200,
+					bufferBottom:		-200,
+					onscroll:			run,
+					onscrolltopstart: function( sticky ) {
+						$(sticky.elem).css('background-position', '0 0px');
+						$('#sticky .text').text('Sticky!');
 					},
-					onscrolltopstart: function( stickyElem ) {
-						if ( !$(stickyElem).find('.runner').hasClass('frame-1') ) $(stickyElem).find('.runner').removeClass('frame-2 frame-3 frame-4').addClass('frame-1');
-					},
-					onscrolltopend: function( stickyElem ) {
-						if ( !$(stickyElem).find('.runner').hasClass('frame-4') ) $(stickyElem).find('.runner').removeClass('frame-1 frame-2 frame-3').addClass('frame-4');
+					onscrolltopend: function( sticky ) {
+						$(sticky.elem).css('background-position', '0 -810px');
+						$('#sticky .text').text('Whoops!');
 					}
 				});
 				
@@ -159,6 +166,8 @@
 				</hgroup>
 				
 				<ul id="navigation" class="navigation">
+					<li><a href="#basic-examples">Basic Examples</a></li>
+					<li><a href="#using-sticky-methods">Using Sticky Methods</a></li>
 					<li><a href="readme.html">Docs</a></li>
 					<li><a href="http://lvl99.com/code">LVL99<span style="color: #f37a9c;">/</span><span style="color: #e3f37a;">CODE</span></a></li>
 					<li class="donate">
@@ -177,51 +186,67 @@
 			
 			<div class="column column-2">
 			
-				<div class="column-page">
-					<p>Sticky allows you flexibility when working with elements you want stuck. In the case of these two examples, the sticky methods allow for extra functionality. For the most part, to stick an element to its position on a page is done like so:</p>
-					<code><pre>$('#normal-sticky').sticky();</pre></code>
-					<p>Constraining an element to being within a parent is just as easy too:</p>
-					<code><pre>$('#constrain-sticky').sticky({
-	constrainTo:	'parent'
-});</pre></code>
-					<p>In the case of this demo I've actually used the custom Sticky events to provide interaction with the stuck element and others at certain points of the scroll using the <span class="code">onscroll</span>, <span class="code">onscrolltopstart</span> and <span class="code">onscrolltopend</span> methods.</p>
+				<div id="basic-examples" class="column-page">
+					<h2>Basic Examples</h2>
+					<p style="margin-right: 100px">Sticky allows you simplicity and flexibility when working with elements you want stuck to a certain point on your page when scrolling. The simplest way to stick an element is like so:</p>
+					<code><pre>$('#sticky').sticky();</pre></code>
+					<p>Scroll down to see this example in action.</p>
+				</div>
+				
+				<div id="sticky"><div class="text">Sticky!</div><a href="#top">&uarr; Back to Top</a></div>
+				
+				<div id="using-sticky-methods" class="column-page">
+					<h2>Using Sticky Methods</h2>
+					<p>The below examples have two sticky elements. Utilising the <span class="code">onscroll</span>, <span class="code">onscrolltopstart</span> and <span class="code">onscrolltopend</span> methods we can then interact with other elements on the page. These two elements have also been constrained to their parent. See the code below after the race...</p>
 				</div>
 				
 				<div id="race">
-					<div id="normal-sticky" class="lvl99-sticky">
-						<h2>Normal Sticky Element</h2>
-						<div class="runner-axis"><!-- position:relative -->
-							<div id="runner-green" class="runner"></div><!-- position:absolute -->
-						</div>
+					<div id="runner-green" class="runner"></div>
+					<div id="constrain"><!-- position:relative -->
+						<div id="runner-pink" class="runner"></div><!-- position:absolute -->
 					</div>
-					
-					<div id="constrain">
-						<div id="constrain-sticky" class="lvl99-sticky">
-							<h2>Constrained Sticky Element</h2>
-							<div class="runner-axis"><!-- position:relative -->
-								<div id="runner-pink" class="runner"></div><!-- position:absolute -->
-							</div>
-						</div>
-					</div>
-					
 					<div id="line"></div>
 				</div>
 				
 				<div class="column-page">
-					<p>Something more here!</p>
+					<h3>Code</h3>
+					<div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #aa5500">&#39;#runner-green&#39;</span>).sticky({
+  track:              <span style="color: #aa5500">&#39;y&#39;</span>,
+  constrainTo:        <span style="color: #aa5500">&#39;parent&#39;</span>,
+  bufferTop:          <span style="color: #009999">200</span>,
+  bufferBottom:       -<span style="color: #009999">200</span>,
+  onscroll:           run,
+  onscrolltopstart: <span style="color: #0000aa">function</span>( sticky ) {
+    $(sticky.elem).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 0px&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#line&#39;</span>).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 0&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#sticky .text&#39;</span>).text(<span style="color: #aa5500">&#39;Sticky!&#39;</span>);
+  },
+  onscrolltopend: <span style="color: #0000aa">function</span>( sticky ) {
+    $(sticky.elem).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 -810px&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#line&#39;</span>).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 -151px&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#sticky .text&#39;</span>).text(<span style="color: #aa5500">&#39;Winner!&#39;</span>);
+  }
+});
+
+$(<span style="color: #aa5500">&#39;#runner-pink&#39;</span>).sticky({
+  track:            <span style="color: #aa5500">&#39;y&#39;</span>,
+  constrainTo:      <span style="color: #aa5500">&#39;parent&#39;</span>,
+  bufferTop:        <span style="color: #009999">200</span>,
+  bufferBottom:     -<span style="color: #009999">200</span>,
+  onscroll:         run,
+  onscrolltopstart: <span style="color: #0000aa">function</span>( sticky ) {
+    $(sticky.elem).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 0px&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#sticky .text&#39;</span>).text(<span style="color: #aa5500">&#39;Sticky!&#39;</span>);
+  },
+  onscrolltopend: <span style="color: #0000aa">function</span>( sticky ) {
+    $(sticky.elem).css(<span style="color: #aa5500">&#39;background-position&#39;</span>, <span style="color: #aa5500">&#39;0 -810px&#39;</span>);
+    $(<span style="color: #aa5500">&#39;#sticky .text&#39;</span>).text(<span style="color: #aa5500">&#39;Whoops!&#39;</span>);
+  }
+});</pre></div>
+
 				</div>
 				
 			</div><!-- /.column-2 -->
-			
-			<!--<div class="column column-page" style="margin-left: 200px; width: 230px; padding: 10px;">
-				<code><pre>$('#normal-sticky').sticky();</pre></code>
-			</div>
-			
-			<div class="column column-page" style="margin-left: 20px; width: 230px; padding: 10px;">
-				<code><pre>$('#constrain-sticky').sticky({
-  constrainTo: 'parent'
-});</pre></code>
-			</div>-->
 			
 		</div><!-- /.page -->
 		
