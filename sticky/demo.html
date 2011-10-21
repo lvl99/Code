@@ -151,6 +151,11 @@
 					}
 				});
 				
+				$('#relative-sticky').sticky({
+					useHelper:			1,
+					scrollHeight:		100
+				});
+				
 			});
 		</script>
 	</head>
@@ -189,7 +194,7 @@
 				<div id="basic-examples" class="column-page">
 					<h2>Basic Examples</h2>
 					<p style="margin-right: 100px">Sticky allows you simplicity and flexibility when working with elements you want stuck to a certain point on your page when scrolling. The simplest way to stick an element is like so:</p>
-					<code><pre>$('#sticky').sticky();</pre></code>
+					<code id="relative-sticky"><pre>$('#sticky').sticky();</pre></code>
 					<p>Scroll down to see this example in action.</p>
 				</div>
 				

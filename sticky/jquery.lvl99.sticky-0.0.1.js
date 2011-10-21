@@ -207,6 +207,9 @@
 			bufferRight:			'width',
 			bufferBottom:			'height',
 			constrainTo:			undefined,
+			useHelper:				0,
+			scrollWidth:			$(document).width(),
+			scrollHeight:			$(document).height(),
 			oninit:					function(){},
 			onscroll:				function(){},
 			onscrolltopstart:		function(){},
@@ -237,6 +240,7 @@
 			$.data(elem, 'offsetLeft', elemOff.left);
 			$.data(elem, 'positionTop', elemPos.top);
 			$.data(elem, 'positionLeft', elemPos.left);
+			$.data(elem, 'useHelper', settings.useHelper);
 			
 			// If parent is relative or fixed, set the origin to position (relative to parent)
 			if ( /(relative|fixed)/i.test($(elem).parent().css('position')) ) {
@@ -263,7 +267,7 @@
 				// Origin X
 				$.data(elem, 'originTop', elemOff.top );
 				if ( $.data(elem, 'stickyTrackY') ) {
-					$.data(elem, 'originBottom', $(document).height()+$.data(elem, 'bufferBottom') );
+					$.data(elem, 'originBottom', $.data(elem, 'originTop')+settings.scrollHeight+$.data(elem, 'bufferBottom') );
 				} else {
 					$.data(elem, 'originBottom', $.data(elem, 'originTop') );
 				}
@@ -271,17 +275,29 @@
 				// Origin Y
 				$.data(elem, 'originLeft', elemOff.left );
 				if ( $.data(elem, 'stickyTrackX') ) {
-					$.data(elem, 'originRight', $(document).width()+$.data(elem, 'bufferRight') );
+					$.data(elem, 'originRight', $.data(elem, 'originLeft')+settings.scrollWidth+$.data(elem, 'bufferRight') );
 				} else {
 					$.data(elem, 'originRight', $.data(elem, 'originLeft') );
 				}
 				
 			}
 			
+			// Helper
+			if ( $.data(elem, 'useHelper') && ($(elem).css('position') == 'relative' || $(elem).css('position') == 'static') ) {
+				$(elem).css({
+					position:			'absolute',
+					left:				$.data(elem, 'originLeft'),
+					top:				$.data(elem, 'originTop'),
+					margin:				0
+				});
+				$.data(elem, 'stickyHelper', $('<div id="sticky-helper-'+($(elem).attr('id') || $('.sticky-helper').length+1)+'" class="sticky-helper" style="display: '+$(elem).css('display')+'; width: '+$(elem).outerWidth()+'px; height: '+$(elem).outerHeight()+'px; padding: 0; margin: '+$(elem).css('margin-top')+'px '+$(elem).css('margin-right')+'px  '+$(elem).css('margin-bottom')+'px '+$(elem).css('margin-left')+'px;"></div>') );
+				$(elem).after( $.data(elem, 'stickyHelper') );
+			}
+			
 			// Scroll Y area (always relative to document by using offset)
 			$.data(elem, 'scrollTop', elemOff.top-$.data(elem, 'bufferTop') );
 			if ( $.data(elem, 'stickyTrackY') ) {
-				$.data(elem, 'scrollBottom', $(document).height()+$.data(elem, 'bufferBottom') );
+				$.data(elem, 'scrollBottom', $.data(elem, 'originTop')+settings.scrollHeight+$.data(elem, 'bufferBottom') );
 			} else {
 				$.data(elem, 'scrollBottom', $.data(elem, 'scrollTop') );
 			}
@@ -289,7 +305,7 @@
 			// Scroll X area (always relative to document by using offset)
 			$.data(elem, 'scrollLeft', elemOff.left-$.data(elem, 'bufferLeft') );
 			if ( $.data(elem, 'stickyTrackX') ) {
-				$.data(elem, 'scrollRight', $(document).width()+$.data(elem, 'bufferRight') );
+				$.data(elem, 'scrollRight', $.data(elem, 'originLeft')+settings.scrollWidth+$.data(elem, 'bufferRight') );
 			} else {
 				$.data(elem, 'scrollRight', $.data(elem, 'scrollLeft') );
 			}
