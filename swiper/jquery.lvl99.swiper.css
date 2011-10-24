@@ -1,0 +1,20 @@
+.lvl99-swiper {
+	overflow:			hidden;
+	position:			relative;
+}
+
+	.lvl99-swiper-panel {
+		position:			absolute;
+		left:				0;
+		top:				0;
+	}
+
+	.lvl99-swiper-pager {
+		padding:			0;
+		margin:				0;
+	}
+	
+		.lvl99-swiper-pager a {
+			padding:			0 2px;
+			margin:				0;
+		}

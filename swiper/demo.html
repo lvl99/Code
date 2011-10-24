@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Swiper Demo</title>
+		<link type="text/css" rel="stylesheet" href="../css/readme.css" />
+		<link type="text/css" rel="stylesheet" href="jquery.lvl99.swiper.css" />
+		<style type="text/css">
+		<!--
+			.lvl99-swiper {
+				width:				100%;
+				height:				150px;
+			}
+			
+			.lvl99-swiper .lvl99-swiper-panel {
+				width:				638px;
+			}
+			
+			.lvl99-swiper .lvl99-swiper-pager a {
+				font-size:			26px;
+			}
+			
+			.lvl99-swiper .lvl99-swiper-pager a.selected {
+				color:				#fff;
+			}
+		-->
+		</style>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
+		<script type="text/javascript" src="../js/jquery.mousewheel.min.js"></script>
+		<script type="text/javascript" src="jquery.lvl99.swiper-0.0.1.js"></script>
+		<script type="text/javascript">
+			$(document).ready( function() {
+			
+				$('#mousewheel-swiper').swiper({
+					type:				'mousewheel'
+				});
+				
+				$('#mousemove-swiper').swiper({
+					type:				'mousemove'
+				});
+				
+				$('#extra-features-swiper').swiper({
+					type:				'none',
+					transition:			'grow',
+					align:				'center middle',
+					autoEnable:			1,
+					autoPauseOnHover:	0,
+					pagerEnable:		0
+				});
+				
+			});
+		</script>
+	</head>
+	<body>
+		
+		<div id="top" class="page">
+			
+			<div class="column column-1">
+			
+				<hgroup>
+					<h1>Swiper</h1>
+					<h4>jQuery</h4>
+				</hgroup>
+				
+				<ul id="navigation" class="navigation">
+					<li><a href="#mousewheel-example">Mousewheel Example</a></li>
+					<li><a href="#mousemove-example">Mousemove Example</a></li>
+					<li><a href="#extra-features">Extra Features</a></li>
+					<li><a href="readme.html">Docs</a></li>
+					<li><a href="http://lvl99.com/code">LVL99<span style="color: #f37a9c;">/</span><span style="color: #e3f37a;">CODE</span></a></li>
+					<li class="donate">
+						<p><strong><big>Like this plugin?</big></strong><br/>
+						Donate to show your appreciation and support!</p>
+						<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+							<input type="hidden" name="cmd" value="_s-xclick">
+							<input type="hidden" name="hosted_button_id" value="XPW9TNXVUBYQL">
+							<input type="image" src="https://www.paypalobjects.com/en_AU/i/btn/btn_donate_LG.gif" border="0" name="submit" alt="PayPal — The safer, easier way to pay online.">
+							<img alt="" border="0" src="https://www.paypalobjects.com/en_AU/i/scr/pixel.gif" width="1" height="1">
+						</form>
+					</li>
+				</ul>
+				
+			</div><!-- /.column-1 -->
+			
+			<div class="column column-2">
+			
+				<div id="mousewheel-example" class="column-page">
+					<h2>Mousewheel Example</h2>
+					<p>Swiper allows the user to navigate through each panel by using the mousewheel. In the example below with your mouse cursor over the Swiper element and move the mousewheel, or other such device like a touchpad.</p>
+					<code><pre>$('#mousewheel-swiper').swiper({
+  type:         'mousewheel'
+});</pre></code>
+					<div id="mousewheel-swiper" class="lvl99-swiper">
+						<div class="example-image">Example 1</div>
+						<div class="example-image example-image-alt">Example 2</div>
+						<div class="example-image">Example 3</div>
+						<div class="example-image example-image-alt">Example 4</div>
+					</div>
+				</div>
+				
+				<div id="mousewheel-example" class="column-page">
+					<h2>Mousemove Example</h2>
+					<p>This example allows the user to navigate through each panel by using the position of the mouse cursor (on the X axis) within the Swiper element.</p>
+					<code><pre>$('#mousemove-swiper').swiper({
+  type:         'mousemove'
+});</pre></code>
+					<div id="mousemove-swiper" class="lvl99-swiper">
+						<div class="example-image">Example 1</div>
+						<div class="example-image example-image-alt">Example 2</div>
+						<div class="example-image">Example 3</div>
+						<div class="example-image example-image-alt">Example 4</div>
+					</div>
+				</div>
+				
+				<div id="extra-features" class="column-page">
+					<h2>Extra Features</h2>
+					<p>Swiper also builds a pager navigation and can also automatically progress through each panel within your Swiper element with an animated transition.</p>
+					<p>Pager navigation building is on by default; a value of <span class="code">false</span> assigned to the Swiper setting <span class="code">pagerEnable</span> with not create the pager navigation.</p>
+					<p>The automatic navigation to the next Swiper panel is off by default; a <span class="code">true</span> value assigned to the Swiper setting <span class="code">autoEnable</span> will enable the auto play function. The auto play pauses when the mouse cursor is within the Swiper element.</p>
+					<p>Speaking of transitions, there are a varied range of different animation styles to use such as: <span class="code">fade</span>, <span class="code">slide-x</span>, <span class="code">slide-y</span> and <span class="code">grow</span>. You can also affect the transitions by aligning the panels to certain sides within the Swiper's area.</p>
+					<code><pre>$('#extra-features-swiper').swiper({
+  type:             'none',
+  transition:       'grow',
+  align:            'center middle',
+  autoEnable:       1,
+  autoPauseOnHover: 0,
+  pagerEnable:      0
+});</pre></code>
+					<div id="extra-features-swiper" class="lvl99-swiper">
+						<div class="example-image">Example 1</div>
+						<div class="example-image example-image-alt">Example 2</div>
+						<div class="example-image">Example 3</div>
+						<div class="example-image example-image-alt">Example 4</div>
+					</div>
+					<p>Change transition: <select onchange="$('#extra-features-swiper').data('swiperTransition', $(this).val());">
+						<option value="none">No animation</option>
+						<option value="fade">Fade</option>
+						<option value="slide-x">Slide (X axis)</option>
+						<option value="slide-y">Slide (Y axis)</option>
+						<option value="grow" selected="selected">Grow</option>
+					</select> <input type="text" value="300" size="4" maxlength="4" onkeyup="$('#extra-features-swiper').data('swiperTransitionTime', $(this).val());" />ms</p>
+					<p>There are further ways to customise the pager navigation and auto play features to your needs. Please read the <a href="readme.html">Docs</a> for more information.</p>
+				</div>
+				
+			</div><!-- /.column-2 -->
+			
+		</div><!-- /.page -->
+		
+	</body>
+</html>
