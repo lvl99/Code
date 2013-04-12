@@ -1,7 +1,7 @@
 /*
 
 	Plugin Name: 			LVL99 Sticky
-	Plugin Version: 		0.1
+	Plugin Version: 		0.2
 	Plugin Description:		'Sticks' an element to a persistent spot on the page or within a parent element when scrolling.
 	Plugin URL:				http://www.lvl99.com/code/sticky
 	
@@ -46,11 +46,11 @@
 				
 				if ( $.data(document, 'stickyDebug') ) {
 					if ( !$('#debug-sticky-'+$elem.attr('id')).length ) {
-						$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span> <span class="sticky-type">'+$.data(elem, 'stickyType')+'</span><br/>'+($.data(elem, 'stickyTrackY') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'stickyTrackY') ? '' : '</del>')+' '+($.data(elem, 'stickyTrackX') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'stickyTrackX') ? '' : '</del>')+'</div>');
+						$('#debug-sticky').append('<div id="debug-sticky-'+$elem.attr('id')+'">#<span class="sticky-id">'+$elem.attr('id')+'</span> <span class="sticky-type">'+$.data(elem, 'stickyType')+'</span> <span class="sticky-align">'+$.data(elem, 'alignCentre')+'</span><br/>'+($.data(elem, 'stickyTrackY') ? '' : '<del>')+'scrollTop: <span class="sticky-scrollTop">'+$.data(elem, 'scrollTop')+'</span>'+($.data(elem, 'stickyTrackY') ? '' : '</del>')+' '+($.data(elem, 'stickyTrackX') ? '' : '<del>')+'<br/>scrollLeft: <span class="sticky-scrollLeft">'+$.data(elem, 'scrollLeft')+'</span>'+($.data(elem, 'stickyTrackX') ? '' : '</del>')+'</div>');
 					}
 					var debug = $('#debug-sticky-'+$elem.attr('id'));
-					debug.find('.sticky-scrollTop').text(scrollTop+' / '+($.data(elem, 'scrollTop')-$.data(elem, 'bufferTop'))+' / '+$.data(elem, 'scrollBottom')+' ('+scrollYAmount+') / '+$.data(elem, 'originTop') );
-					debug.find('.sticky-scrollLeft').text(scrollLeft+' / '+($.data(elem, 'scrollLeft')-$.data(elem, 'bufferLeft'))+' / '+$.data(elem, 'scrollRight')+' ('+scrollXAmount+') / '+$.data(elem, 'originLeft') );
+					debug.find('.sticky-scrollTop').text(scrollTop+' / '+($.data(elem, 'scrollTop')-$.data(elem, 'bufferTop'))+' / '+$.data(elem, 'scrollBottom')+' ('+scrollTopAmount+') / '+$.data(elem, 'originTop') );
+					debug.find('.sticky-scrollLeft').text(scrollLeft+' / '+($.data(elem, 'scrollLeft')-$.data(elem, 'bufferLeft'))+' / '+$.data(elem, 'scrollRight')+' ('+scrollLeftAmount+') / '+$.data(elem, 'originLeft') );
 				}
 				
 				// Track Scroll Y
@@ -240,6 +240,8 @@
 			$.data(elem, 'offsetLeft', elemOff.left);
 			$.data(elem, 'positionTop', elemPos.top);
 			$.data(elem, 'positionLeft', elemPos.left);
+			$.data(elem, 'constrainTo', null );
+			$.data(elem, 'alignCentre', null );
 			$.data(elem, 'useHelper', settings.useHelper);
 			
 			// If parent is relative or fixed, set the origin to position (relative to parent)
@@ -353,12 +355,25 @@
 				}
 			}
 			
+			// Check centre alignment
+			console.log( $(elem).attr('id')+' ===> '+$(elem).parent().css('text-align')+' '+$(elem).css('display')+' '+$(elem).css('margin-left')+' '+$(elem).css('margin-right')+' '+$(elem).css('left') );
+			if ( $(elem).parent().css('text-align') == 'center' && $(elem).css('display') != 'block' ) {
+				$.data(elem, 'alignCentre', 'text' )
+			}
+			if ( $(elem).css('margin-left') == 'auto' && $(elem).css('margin-right') == 'auto' ) {
+				$.data(elem, 'alignCentre', 'margin' );
+			}
+			if ( !/px/.test($(elem).css('left')) ) {
+				$.data(elem, 'alignCentre', 'percent' );
+			}
+			
 			// Add sticky element to the list
 			$.data(document, 'stickyElems').push(elem);
 			
 			// Trigger init event
 			if ( typeof settings.oninit == 'function' ) settings.oninit( elem );
 			
+			// Debug window
 			if ( $.data(document, 'stickyDebug') ) {
 				$('body').append('<div id="sticky-'+$(elem).attr('id')+'-scroll-start" style="background: rgba(0,255,54,.5); position: absolute; left: '+$.data(elem, 'scrollLeft')+'px; top: '+$.data(elem, 'scrollTop')+'px;">'+$(elem).attr('id')+'<br/>left,top<br/>X:'+$.data(elem, 'scrollLeft')+' Y:'+$.data(elem, 'scrollTop')+'</div>' );
 				$('body').append('<div id="sticky-'+$(elem).attr('id')+'-scroll-end" style="background: rgba(0,255,54,.5); position: absolute; left: '+$.data(elem, 'scrollRight')+'px; top: '+$.data(elem, 'scrollBottom')+'px;">'+$(elem).attr('id')+'<br/>right,bottom<br/>X:'+$.data(elem, 'scrollRight')+' Y:'+$.data(elem, 'scrollBottom')+'</div>' );
@@ -366,7 +381,7 @@
 				var originStart = '<div id="sticky-'+$(elem).attr('id')+'-origin-start" style="background: rgba(255,54,0,.5); position: absolute; left: '+$.data(elem, 'originLeft')+'px; top: '+$.data(elem, 'originTop')+'px;">Left:'+$.data(elem, 'originLeft')+' Top:'+$.data(elem, 'originTop')+'</div>';
 				var originEnd = '<div id="sticky-'+$(elem).attr('id')+'-origin-end" style="background: rgba(255,0,54,.5); position: absolute; left: '+$.data(elem, 'originRight')+'px; top: '+$.data(elem, 'originBottom')+'px;">Right:'+$.data(elem, 'originRight')+' Bottom:'+$.data(elem, 'originBottom')+'</div>';
 				
-				if ( $.data(elem, 'constrainTo').length == 1 ) {
+				if ( $.data(elem, 'constrainTo') && $.data(elem, 'constrainTo').length == 1 ) {
 					$.data(elem, 'constrainTo').append(originStart);
 					$.data(elem, 'constrainTo').append(originEnd);
 				} else {
@@ -374,6 +389,8 @@
 					$('body').append(originEnd);
 				}
 			}
+			
+			stickyElements();
 			
 		});
 		

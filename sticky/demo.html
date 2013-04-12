@@ -11,7 +11,7 @@
 			#sticky {
 				position:				absolute;
 				top:					100px;
-				left:					850px;
+				left:					50%;
 				background:				#fff799;
 				color:					#000;
 				font-family:			'Satisfy';
@@ -19,6 +19,7 @@
 				width:					100px;
 				height:					100px;
 				padding:				30px;
+				margin:					0 0 0 170px;
 				transform:				rotate(5deg);
 				-moz-transform:			rotate(5deg);
 				-webkit-transform:		rotate(5deg);
@@ -81,6 +82,27 @@
 				z-index:				9999;
 			}
 			
+			.centred {
+				width:					100%;
+				margin:					0 0 50px;
+				position:				relative;
+				height:					30px;
+			}
+			
+			.centre-sticky {
+				padding:				5px;
+				color:					#eee;
+				background:				#333;
+				border-radius:			5px;
+				clear:					both;
+				width:					350px;
+				text-align:				center;
+			}
+			
+			#centred-sticky-1 {
+				display:				inline-block;
+			}
+			
 		-->
 		</style>
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.2/jquery.js"></script>
@@ -91,6 +113,17 @@
 				$.data(document, 'stickyDebug', 0);
 				
 				$('#sticky').sticky();
+				/*
+				$('#centred-sticky-1').sticky({
+					scrollHeight:		$('#centred-sticky-1').offset().top+30
+				});
+				$('#centred-sticky-2').sticky({
+					scrollHeight:		$('#centred-sticky-2').offset().top+30
+				});
+				$('#centred-sticky-3').sticky({
+					scrollHeight:		$('#centred-sticky-3').offset().top+30
+				});
+*/
 			
 				function run( sticky ) {
 					if ( sticky.scrollTop < 800 ) $('#sticky .text').text('Go!');
@@ -194,6 +227,33 @@
 				</div>
 				
 				<div id="sticky"><div class="text">Sticky!</div><a href="#top">&uarr; Back to Top</a></div>
+				
+				<!--<div id="basic-examples" class="column-page">
+					<h3>Centred Elements</h3>
+					<p>Centred elements bring a little more complexity to the script, but nothing you'll need to worry about. So far these methods of centre alignment are supported:</p>
+					<ul>
+						<li><span class="code">text-align: center</span></li>
+						<li><span class="code">margin: 0 auto</span></li>
+						<li><span class="code">left: <span style="color: white;">N</span>%</span></li>
+					</ul>
+					<p>See below to check the different versions in action. Resize the page window to see the centre alignment take effect.</p>
+				</div>-->
+				
+			</div>
+				
+			<!--<div style="clear: both">
+				<div class="centred" style="text-align: center">
+					<div id="centred-sticky-1" class="centre-sticky">Centred using <span class="code">text-align: center</span></div>
+				</div>
+				<div class="centred">
+					<div id="centred-sticky-2" class="centre-sticky" style="margin: 0 auto;">Centred using <span class="code">margin: 0 auto</span></div>
+				</div>
+				<div class="centred" style="height: 30px;">
+					<div id="centred-sticky-3" class="centre-sticky" style="position: absolute; left: 50%; margin-left: -180px;">Centred using <span class="code">left: 50%</span></div>
+				</div>
+			</div>-->
+				
+			<div class="column column-2">
 				
 				<div id="using-sticky-methods" class="column-page">
 					<h2>Using Sticky Methods</h2>

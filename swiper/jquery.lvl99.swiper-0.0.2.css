@@ -1,0 +1,132 @@
+.lvl99-swiper {
+	overflow:			hidden;
+	position:			relative;
+}
+
+	.lvl99-swiper-panel {
+		visibility:			hidden;
+		position:			absolute;
+		left:				0;
+		top:				0;
+		z-index: 			1;
+	}
+	
+		.lvl99-swiper-panel.lvl99-swiper-selected {
+			visibility:			visible;
+			z-index: 			5;
+		}
+
+	.lvl99-swiper-pager {
+		padding:			0;
+		margin:				0;
+	}
+	
+		.lvl99-swiper-pager a {
+			padding:			0 2px;
+			margin:				0;
+		}
+		
+		.lvl99-swiper-pager a.lvl99-swiper-selected {
+			color: pink;
+		}
+	
+	.lvl99-swiper-align-x-left {
+		left: 0;
+	}
+	
+	.lvl99-swiper-align-x-right {
+		right: 0;
+	}
+	
+	.lvl99-swiper-align-x-center {
+		left: 50%;
+	}
+	
+	.lvl99-swiper-align-y-top {
+		top: 0;
+	}
+	
+	.lvl99-swiper-align-y-bottom {
+		bottom: 0;
+	}
+	
+	.lvl99-swiper-align-y-middle {
+		top: 50%;
+	}
+
+/* CSS Transitions */
+.lvl99-swiper-anim-fade .lvl99-swiper-panel {
+	-webkit-transition: opacity .5s linear;
+	-moz-transition: opacity .5s linear;
+	-ms-transition: opacity .5s linear;
+	-o-transition: opacity .5s linear;
+	transition: opacity .5s linear;
+}
+	
+	.lvl99-swiper-anim-fade .lvl99-swiper-panel.lvl99-swiper-anim-state-enter,
+	.lvl99-swiper-anim-fade .lvl99-swiper-panel.lvl99-swiper-selected {
+		opacity: 1;
+	}
+	
+	.lvl99-swiper-anim-fade .lvl99-swiper-panel,
+	.lvl99-swiper-anim-fade .lvl99-swiper-panel.lvl99-swiper-anim-state-exit {
+		opacity: 0;
+	}
+
+.lvl99-swiper-anim-slide-x .lvl99-swiper-panel {
+	-webkit-transition: -webkit-transform .5s linear;
+	-moz-transition: -moz-transform .5s linear;
+	-ms-transition: -ms-transform .5s linear;
+	-o-transition: -o-transform .5s linear;
+	transition: transform .5s linear;
+}
+	
+	.lvl99-swiper-anim-slide-x .lvl99-swiper-panel.lvl99-swiper-anim-state-enter,
+	.lvl99-swiper-anim-slide-x .lvl99-swiper-panel.lvl99-swiper-selected {
+		-webkit-transform: translateX(0);
+		-moz-transform: translateX(0);
+		-ms-transform: translateX(0);
+		-o-transform: translateX(0);
+		transform: translateX(0);
+	}
+	
+	.lvl99-swiper-anim-slide-x .lvl99-swiper-panel,
+	.lvl99-swiper-anim-slide-x .lvl99-swiper-panel.lvl99-swiper-anim-state-exit {
+		-webkit-transform: translateX(-100%);
+		-moz-transform: translateX(-100%);
+		-ms-transform: translateX(-100%);
+		-o-transform: translateX(-100%);
+		transform: translateX(-100%);
+	}
+
+.lvl99-swiper-anim-slide-y .lvl99-swiper-panel {
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	-o-transform: translateY(-100%);
+	transform: translateY(-100%);
+	
+	-webkit-transition: -webkit-transform .5s linear;
+	-moz-transition: -moz-transform .5s linear;
+	-ms-transition: -ms-transform .5s linear;
+	-o-transition: -o-transform .5s linear;
+	transition: transform .5s linear;
+}
+
+	.lvl99-swiper-anim-slide-y .lvl99-swiper-panel.lvl99-swiper-anim-state-enter,
+	.lvl99-swiper-anim-slide-y .lvl99-swiper-panel.lvl99-swiper-selected {
+		-webkit-transform: translateY(0);
+		-moz-transform: translateY(0);
+		-ms-transform: translateY(0);
+		-o-transform: translateY(0);
+		transform: translateY(0);
+	}
+	
+	.lvl99-swiper-anim-slide-y .lvl99-swiper-panel,
+	.lvl99-swiper-anim-slide-y .lvl99-swiper-panel.lvl99-swiper-anim-state-exit {
+		-webkit-transform: translateY(-100%);
+		-moz-transform: translateY(-100%);
+		-ms-transform: translateY(-100%);
+		-o-transform: translateY(-100%);
+		transform: translateY(-100%);
+	}
